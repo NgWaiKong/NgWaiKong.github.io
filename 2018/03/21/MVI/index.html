@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="architecture," />
 
 
 
@@ -79,12 +79,13 @@
 
 
 
-<meta name="description" content="#一、业务问题个人负责维护过的几个业务，都以MVC、MVP模式来设计。随着业务发展，出现以下问题：  改动一处Model牵连数处View，难以测试 View的更新时序不一，难以调试 View、Model调用源头过多，难以跟踪  #二、问题分析对整体业务进行了熟悉和梳理后，发现架构情况（单以MVC为例）如图：   当业务复杂后，修改Model或者View后，他们有可能会引起多个其他MV的变化。这些“">
+<meta name="description" content="##一、业务问题个人负责维护过的几个业务，都以MVC、MVP模式来设计。随着业务发展，出现以下问题：  改动一处Model牵连数处View，难以测试 View的更新时序不一，难以调试 View、Model调用源头过多，难以跟踪  ##二、问题分析对整体业务进行了熟悉和梳理后，发现架构情况（单以MVC为例）如图：   当业务复杂后，修改Model或者View后，他们有可能会引起多个其他MV的变化。这">
+<meta name="keywords" content="architecture">
 <meta property="og:type" content="article">
-<meta property="og:title" content="NgWaiKong&#39;s Blog">
+<meta property="og:title" content="Thinking in MVI">
 <meta property="og:url" content="http://yoursite.com/2018/03/21/MVI/index.html">
 <meta property="og:site_name" content="NgWaiKong&#39;s Blog">
-<meta property="og:description" content="#一、业务问题个人负责维护过的几个业务，都以MVC、MVP模式来设计。随着业务发展，出现以下问题：  改动一处Model牵连数处View，难以测试 View的更新时序不一，难以调试 View、Model调用源头过多，难以跟踪  #二、问题分析对整体业务进行了熟悉和梳理后，发现架构情况（单以MVC为例）如图：   当业务复杂后，修改Model或者View后，他们有可能会引起多个其他MV的变化。这些“">
+<meta property="og:description" content="##一、业务问题个人负责维护过的几个业务，都以MVC、MVP模式来设计。随着业务发展，出现以下问题：  改动一处Model牵连数处View，难以测试 View的更新时序不一，难以调试 View、Model调用源头过多，难以跟踪  ##二、问题分析对整体业务进行了熟悉和梳理后，发现架构情况（单以MVC为例）如图：   当业务复杂后，修改Model或者View后，他们有可能会引起多个其他MV的变化。这">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://m.qpic.cn/psb?/V10Sw18W1Je6qM/98yuLBH7e4bFca6OuslJp0cpBbwTGAuSlBWUjAscuYM!/b/dEABAAAAAAAA&bo=XQHIAF0ByAADFzI!&rf=viewer_4&t=5">
 <meta property="og:image" content="http://m.qpic.cn/psb?/V10Sw18W1Je6qM/GBy37MY70nI7bnfTY4QOugvyOl*rlxMtduo5GoZIiv0!/b/dEUBAAAAAAAA&bo=9ADIAPQAyAADFzI!&rf=viewer_4&t=5">
@@ -92,10 +93,10 @@
 <meta property="og:image" content="http://m.qpic.cn/psb?/V10Sw18W1Je6qM/zuBoEqyrxNgrDR4nQX6CBAr2.WVVt.arzCrtpDIBhiY!/b/dFYBAAAAAAAA&bo=4gHIAOIByAADFzI!&rf=viewer_4&t=5">
 <meta property="og:image" content="http://m.qpic.cn/psb?/V10Sw18W1Je6qM/mJkKUupvtQWMs57vjeeHNnftb0ze8Gctqtb0iHnpfYE!/b/dPMAAAAAAAAA&bo=qwHIAKsByAADFzI!&rf=viewer_4&t=5">
 <meta property="og:image" content="http://m.qpic.cn/psb?/V10Sw18W1Je6qM/xzYY37GAMtFpO8OJQz6u2qDZw2epd7gcKR9iQyH28oA!/b/dEIBAAAAAAAA&bo=YgHIAGIByAADFzI!&rf=viewer_4&t=5">
-<meta property="og:updated_time" content="2018-03-21T04:54:58.741Z">
+<meta property="og:updated_time" content="2018-03-21T05:08:12.065Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="NgWaiKong&#39;s Blog">
-<meta name="twitter:description" content="#一、业务问题个人负责维护过的几个业务，都以MVC、MVP模式来设计。随着业务发展，出现以下问题：  改动一处Model牵连数处View，难以测试 View的更新时序不一，难以调试 View、Model调用源头过多，难以跟踪  #二、问题分析对整体业务进行了熟悉和梳理后，发现架构情况（单以MVC为例）如图：   当业务复杂后，修改Model或者View后，他们有可能会引起多个其他MV的变化。这些“">
+<meta name="twitter:title" content="Thinking in MVI">
+<meta name="twitter:description" content="##一、业务问题个人负责维护过的几个业务，都以MVC、MVP模式来设计。随着业务发展，出现以下问题：  改动一处Model牵连数处View，难以测试 View的更新时序不一，难以调试 View、Model调用源头过多，难以跟踪  ##二、问题分析对整体业务进行了熟悉和梳理后，发现架构情况（单以MVC为例）如图：   当业务复杂后，修改Model或者View后，他们有可能会引起多个其他MV的变化。这">
 <meta name="twitter:image" content="http://m.qpic.cn/psb?/V10Sw18W1Je6qM/98yuLBH7e4bFca6OuslJp0cpBbwTGAuSlBWUjAscuYM!/b/dEABAAAAAAAA&bo=XQHIAF0ByAADFzI!&rf=viewer_4&t=5">
 
 
@@ -132,7 +133,7 @@
 
 
 
-  <title> | NgWaiKong's Blog</title>
+  <title>Thinking in MVI | NgWaiKong's Blog</title>
   
 
 
@@ -296,7 +297,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline"></h1>
+          <h1 class="post-title" itemprop="name headline">Thinking in MVI</h1>
         
 
         <div class="post-meta">
@@ -308,7 +309,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-21T12:41:16+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-21T00:00:00+08:00">
                 2018-03-21
               </time>
             
@@ -318,6 +319,28 @@
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/architecture/" itemprop="url" rel="index">
+                    <span itemprop="name">architecture</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -346,20 +369,20 @@
       
 
       
-        <p>#一、业务问题<br>个人负责维护过的几个业务，都以MVC、MVP模式来设计。随着业务发展，出现以下问题：</p>
+        <p>##一、业务问题<br>个人负责维护过的几个业务，都以MVC、MVP模式来设计。随着业务发展，出现以下问题：</p>
 <ul>
 <li>改动一处Model牵连数处View，难以测试</li>
 <li>View的更新时序不一，难以调试</li>
 <li>View、Model调用源头过多，难以跟踪</li>
 </ul>
-<p>#二、问题分析<br>对整体业务进行了熟悉和梳理后，发现架构情况（单以MVC为例）如图：</p>
+<p>##二、问题分析<br>对整体业务进行了熟悉和梳理后，发现架构情况（单以MVC为例）如图：</p>
 <p><img src="http://m.qpic.cn/psb?/V10Sw18W1Je6qM/98yuLBH7e4bFca6OuslJp0cpBbwTGAuSlBWUjAscuYM!/b/dEABAAAAAAAA&amp;bo=XQHIAF0ByAADFzI!&amp;rf=viewer_4&amp;t=5" alt=""><br><img src="http://m.qpic.cn/psb?/V10Sw18W1Je6qM/GBy37MY70nI7bnfTY4QOugvyOl*rlxMtduo5GoZIiv0!/b/dEUBAAAAAAAA&amp;bo=9ADIAPQAyAADFzI!&amp;rf=viewer_4&amp;t=5" alt=""></p>
 <ol>
 <li>当业务复杂后，修改Model或者View后，他们有可能会引起多个其他MV的变化。这些“暗箱操作”缺乏统一管理。</li>
 <li>Model、View变化来源有可能是异步情景（IO、UI交互、系统生命周期），对这些情景下的异步、同步代码缺乏有效组织。</li>
 </ol>
 <p>以上问题导致出现了难以“预测”结果，难以Scale Up，难以测试，难以维护的问题。</p>
-<p>#三、解决方式</p>
+<p>##三、解决方式</p>
 <ul>
 <li>方式目的：让代码流程变得可预测</li>
 <li>解决思路：数据逻辑单向流动，程序响应数据变化</li>
@@ -389,7 +412,7 @@
 <li><p>方案沉淀：采用MVI架构设计、采用RxJava实现响应。（基于2和3）</p>
 </li>
 </ul>
-<p>#四、实现细节：</p>
+<p>##四、实现细节：</p>
 <p>###（一）MVI实现：<br><img src="http://m.qpic.cn/psb?/V10Sw18W1Je6qM/xzYY37GAMtFpO8OJQz6u2qDZw2epd7gcKR9iQyH28oA!/b/dEIBAAAAAAAA&amp;bo=YgHIAGIByAADFzI!&amp;rf=viewer_4&amp;t=5" alt=""></p>
 <ul>
 <li>Action：包含业务逻辑处理所需的参数数据</li>
@@ -412,7 +435,7 @@
 <p>###（三）实现问题：</p>
 <p>####问题Ⅰ：前后相同的ViewState，会触发UI造成不必要的刷新。<br>解决：通过distinctUntilChanged（）来过滤前后两次的scan（）结果，不相同的ViewState才进行刷新。</p>
 <p>####问题Ⅱ：当在onConfigurationChanged时，数据流无法保持，会被重新创建。无法应用在屏幕旋转但需要保持最近展示数据的情景。（数据流在onCreate时订阅subscribe，onDestory时unSubscribe）<br>解决：<br>A、对于流的结果ViewState，需要进行缓存，可以通过replay(） +  autoConnect（）或者BehaviorSubject实现<br>B、对于流的起始输入，需要保持在内存，不受生命周期影响。可以通过使用一个静态的PublishSubject来中转View层的Intent输入。</p>
-<p>#五、使用效果<br>（1）所有异步逻辑收归到同一条流，View层只进行响应，因此会</p>
+<p>##五、使用效果<br>（1）所有异步逻辑收归到同一条流，View层只进行响应，因此会</p>
 <ul>
 <li>便于代码跟踪和调试</li>
 <li>便于解决时序问题</li>
@@ -423,14 +446,14 @@
 <li>消除额外的“暗箱操作”</li>
 <li>更直观更容易理解业务逻辑（都有唯一和相同的输入输出）</li>
 </ul>
-<p>#六、问题思考<br>这套开发模式（框架）并不是解决问题的“银弹”，会有以下问题</p>
+<p>##六、问题思考<br>这套开发模式（框架）并不是解决问题的“银弹”，会有以下问题</p>
 <ul>
 <li>小粒度修改，修改成本大：因为需要统一的收归处理，因此小粒度的对View的增删修改，都需要全流程修改，没有像之前MVC的灵活方便。</li>
 <li>业务复杂后，收归成本大：因为统一收归里需要处理每种Action和Result。业务复杂后，在收归处会有大量的if-else if-else 以及switch 处理。</li>
 <li>RxJava的学习成本</li>
 </ul>
 <p>因此需要针对核心业务或业务的核心数据，灵活采用能解决主要矛盾的框架或模式，才是“银弹”。</p>
-<p>#七、相关参考</p>
+<p>##七、相关参考</p>
 <ol>
 <li><a href="https://facebook.github.io/flux/" target="_blank" rel="noopener">https://facebook.github.io/flux/</a></li>
 <li><a href="https://cycle.js.org/" target="_blank" rel="noopener">https://cycle.js.org/</a></li>
@@ -456,6 +479,12 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/architecture/" rel="tag"># architecture</a>
+          
+        </div>
+      
 
       
       
@@ -465,15 +494,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/03/21/hello-world/" rel="next" title="Hello World">
-                <i class="fa fa-chevron-left"></i> Hello World
-              </a>
-            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/03/21/hello-world/" rel="prev" title="Hello World">
+                Hello World <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -548,7 +577,25 @@
             
 
             
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
 
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
             
 
           </nav>
