@@ -329,18 +329,14 @@
 
       
         
-          
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-          
+          <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post.</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/03/21/hello-world/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -479,94 +475,20 @@
 
       
         
-          
-            <h2 id="一、业务问题"><a href="#一、业务问题" class="headerlink" title="一、业务问题"></a>一、业务问题</h2><p>个人负责维护过的几个业务，都以MVC、MVP模式来设计。随着业务发展，出现以下问题：</p>
+          <h2 id="一、业务问题"><a href="#一、业务问题" class="headerlink" title="一、业务问题"></a>一、业务问题</h2><p>个人负责维护过的几个业务，都以MVC、MVP模式来设计。随着业务发展，出现以下问题：</p>
 <ul>
 <li>改动一处Model牵连数处View，难以测试</li>
 <li>View的更新时序不一，难以调试</li>
 <li>View、Model调用源头过多，难以跟踪</li>
 </ul>
 <h2 id="二、问题分析"><a href="#二、问题分析" class="headerlink" title="二、问题分析"></a>二、问题分析</h2><p>对整体业务进行了熟悉和梳理后，发现架构情况（单以MVC为例）如图：</p>
-<p><img src="http://m.qpic.cn/psb?/V10Sw18W1Je6qM/98yuLBH7e4bFca6OuslJp0cpBbwTGAuSlBWUjAscuYM!/b/dEABAAAAAAAA&amp;bo=XQHIAF0ByAADFzI!&amp;rf=viewer_4&amp;t=5" alt=""><br><img src="http://m.qpic.cn/psb?/V10Sw18W1Je6qM/GBy37MY70nI7bnfTY4QOugvyOl*rlxMtduo5GoZIiv0!/b/dEUBAAAAAAAA&amp;bo=9ADIAPQAyAADFzI!&amp;rf=viewer_4&amp;t=5" alt=""></p>
-<ol>
-<li>当业务复杂后，修改Model或者View后，他们有可能会引起多个其他MV的变化。这些“暗箱操作”缺乏统一管理。</li>
-<li>Model、View变化来源有可能是异步情景（IO、UI交互、系统生命周期），对这些情景下的异步、同步代码缺乏有效组织。</li>
-</ol>
-<p>以上问题导致出现了难以“预测”结果，难以Scale Up，难以测试，难以维护的问题。</p>
-<h2 id="三、解决方式"><a href="#三、解决方式" class="headerlink" title="三、解决方式"></a>三、解决方式</h2><ul>
-<li>方式目的：让代码流程变得可预测</li>
-<li>解决思路：数据逻辑单向流动，程序响应数据变化</li>
-<li>方案学习：<br>学习了前端中的单向数据流、响应式的思想和框架，包括Flux、Redux、Cycle.js。</li>
-</ul>
-<h3 id="1、-Flux"><a href="#1、-Flux" class="headerlink" title="1、 Flux"></a>1、 Flux</h3><h4 id="图述："><a href="#图述：" class="headerlink" title="图述："></a>图述：</h4><p><img src="http://m.qpic.cn/psb?/V10Sw18W1Je6qM/RTsxjtcfw96eh*VuOG0UrrazCAHEUAOmSvR7D4mgOUw!/b/dEUBAAAAAAAA&amp;bo=lALIAJQCyAADFzI!&amp;rf=viewer_4&amp;t=5" alt=""></p>
-<ul>
-<li>核心：</li>
-<li>Stores:存放业务数据和应用状态，一个Flux中可能存在多个Stores</li>
-<li>View:视图层</li>
-<li>Actions:用户输入之后触发View发出的事件</li>
-<li>Dispatcher:负责分发Actions</li>
-</ul>
-<h4 id="Android实现：https-github-com-lgvalle-android-flux-todo-app"><a href="#Android实现：https-github-com-lgvalle-android-flux-todo-app" class="headerlink" title="Android实现：https://github.com/lgvalle/android-flux-todo-app"></a>Android实现：<a href="https://github.com/lgvalle/android-flux-todo-app" target="_blank" rel="noopener">https://github.com/lgvalle/android-flux-todo-app</a></h4><h3 id="2、Cycle-js"><a href="#2、Cycle-js" class="headerlink" title="2、Cycle.js"></a>2、Cycle.js</h3><h4 id="图述：-1"><a href="#图述：-1" class="headerlink" title="图述："></a>图述：</h4><p><img src="http://m.qpic.cn/psb?/V10Sw18W1Je6qM/zuBoEqyrxNgrDR4nQX6CBAr2.WVVt.arzCrtpDIBhiY!/b/dFYBAAAAAAAA&amp;bo=4gHIAOIByAADFzI!&amp;rf=viewer_4&amp;t=5" alt=""></p>
-<ul>
-<li>核心：View(Model(Intent))–MVI架构 和 采用RxJs实现响应式</li>
-</ul>
-<h4 id="Android实现：https-github-com-sockeqwe-mosby"><a href="#Android实现：https-github-com-sockeqwe-mosby" class="headerlink" title="Android实现：https://github.com/sockeqwe/mosby"></a>Android实现：<a href="https://github.com/sockeqwe/mosby" target="_blank" rel="noopener">https://github.com/sockeqwe/mosby</a></h4><h3 id="3、Managing-State-with-RxJava"><a href="#3、Managing-State-with-RxJava" class="headerlink" title="3、Managing State with RxJava"></a>3、Managing State with RxJava</h3><h4 id="图述：-2"><a href="#图述：-2" class="headerlink" title="图述："></a>图述：</h4><p><img src="http://m.qpic.cn/psb?/V10Sw18W1Je6qM/mJkKUupvtQWMs57vjeeHNnftb0ze8Gctqtb0iHnpfYE!/b/dPMAAAAAAAAA&amp;bo=qwHIAKsByAADFzI!&amp;rf=viewer_4&amp;t=5" alt=""></p>
-<ul>
-<li><p>核心：类似Cycle.js，安卓实现的另一版本。</p>
-</li>
-<li><p>方案沉淀：采用MVI架构设计、采用RxJava实现响应。（基于2和3）</p>
-</li>
-</ul>
-<h2 id="四、实现细节："><a href="#四、实现细节：" class="headerlink" title="四、实现细节："></a>四、实现细节：</h2><h3 id="（一）MVI实现："><a href="#（一）MVI实现：" class="headerlink" title="（一）MVI实现："></a>（一）MVI实现：</h3><p><img src="http://m.qpic.cn/psb?/V10Sw18W1Je6qM/xzYY37GAMtFpO8OJQz6u2qDZw2epd7gcKR9iQyH28oA!/b/dEIBAAAAAAAA&amp;bo=YgHIAGIByAADFzI!&amp;rf=viewer_4&amp;t=5" alt=""></p>
-<ul>
-<li>Action：包含业务逻辑处理所需的参数数据</li>
-<li>Intent：代表View或其他事件的触发</li>
-<li>Result：包含业务逻辑返回的数据</li>
-<li>ViewState：包含View层所需绘制的数据</li>
-<li>IView：是View层核心职责抽象：对ViewState的绘制、提供Intent事件源</li>
-<li>IViewModel：是业务层抽象：对Intent的业务处理、对业务返回转化为ViewState</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Action</span> </span>&#123;&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Intent</span> </span>&#123;&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Result</span> </span>&#123;&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">ViewState</span> </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">IView</span>&lt;<span class="title">I</span> <span class="keyword">extends</span> <span class="title">Intent</span>, <span class="title">VS</span> <span class="keyword">extends</span> <span class="title">ViewState</span>&gt; </span>&#123;</span><br><span class="line">    <span class="function">Observable&lt;I&gt; <span class="title">getIntents</span><span class="params">()</span></span>;<span class="comment">//提供Intent事件源</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">render</span><span class="params">(VS vs)</span></span>;<span class="comment">//对ViewState的绘制</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">IViewModel</span>&lt;<span class="title">I</span> <span class="keyword">extends</span> <span class="title">Intent</span>, <span class="title">VS</span> <span class="keyword">extends</span> <span class="title">ViewState</span>&gt; </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">process</span><span class="params">(Observable&lt;I&gt; intent)</span></span>; <span class="comment">//处理Intent</span></span><br><span class="line">    <span class="function">Observable&lt;VS&gt; <span class="title">getViewState</span><span class="params">()</span></span>;<span class="comment">//获取ViewState</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="（二）数据流实现："><a href="#（二）数据流实现：" class="headerlink" title="（二）数据流实现："></a>（二）数据流实现：</h3><p>数据流的起始为Intent，结束为ViewState。下面分为几个部分描述：</p>
-<h4 id="1、Intent-to-Action："><a href="#1、Intent-to-Action：" class="headerlink" title="1、Intent to Action："></a>1、Intent to Action：</h4><p>A、通过Observable.merge（）把IView中的各个intent数据流合并，收归处理。<br>B、通过ofType（）  +  map （）来过滤各个Action将要进行的业务逻辑。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">intentSelector = <span class="keyword">new</span> Func1&lt;Observable&lt;SampleIntent&gt;, Observable&lt;SampleIntent&gt;&gt;() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> Observable&lt;SampleIntent&gt; <span class="title">call</span><span class="params">(Observable&lt;SampleIntent&gt; shareIntent)</span> </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> Observable.merge(</span><br><span class="line">                        shareIntent.ofType(SampleIntent.AIntent.class),</span><br><span class="line">                        shareIntent.ofType(SampleIntent.BIntent.class)</span><br><span class="line">                );</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line"> intentToAction = <span class="keyword">new</span> Func1&lt;SampleIntent, SampleAction&gt;() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> SampleAction <span class="title">call</span><span class="params">(SampleIntent sampleIntent)</span> </span>&#123;</span><br><span class="line">                <span class="keyword">if</span> (sampleIntent <span class="keyword">instanceof</span> SampleIntent.AIntent) &#123;</span><br><span class="line">                    <span class="keyword">return</span> <span class="keyword">new</span> SampleAction.AAction();</span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (sampleIntent <span class="keyword">instanceof</span> SampleIntent.BIntent) &#123;</span><br><span class="line">                    <span class="keyword">return</span> <span class="keyword">new</span> SampleAction.BAction();</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br></pre></td></tr></table></figure>
-<h4 id="2、Action-to-Result："><a href="#2、Action-to-Result：" class="headerlink" title="2、Action to Result："></a>2、Action to Result：</h4><p>通过compose（） 和 ObservableTransformer 组织业务逻辑，方便代码梳理和业务逻辑隔离</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">bizProcessor = <span class="keyword">new</span> Observable.Transformer&lt;SampleAction, SampleResult&gt;() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> Observable&lt;SampleResult&gt; <span class="title">call</span><span class="params">(<span class="keyword">final</span> Observable&lt;SampleAction&gt; shareAction)</span> </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> shareAction.publish(<span class="keyword">new</span> Func1&lt;Observable&lt;SampleAction&gt;, Observable&lt;SampleResult&gt;&gt;() &#123;</span><br><span class="line">                    <span class="meta">@Override</span></span><br><span class="line">                    <span class="function"><span class="keyword">public</span> Observable&lt;SampleResult&gt; <span class="title">call</span><span class="params">(Observable&lt;SampleAction&gt; sampleActionObservable)</span> </span>&#123;</span><br><span class="line">                        <span class="keyword">return</span> Observable.merge(</span><br><span class="line">                                shareAction.ofType(SampleAction.AAction.class).compose(aActionToAResultProcessor),</span><br><span class="line">                                shareAction.ofType(SampleAction.BAction.class).compose(bActionToBResultProcessor));</span><br><span class="line"></span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br></pre></td></tr></table></figure>
-<h4 id="3、Result-to-ViewState："><a href="#3、Result-to-ViewState：" class="headerlink" title="3、Result to ViewState："></a>3、Result to ViewState：</h4><p>通过Scan（）来遍历每个业务返回的Result，并根据每个业务Result的字段来返回新的ViewState。（Scan会缓存上次的Result，因此也可以用于做增量更新）</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">reducer = <span class="keyword">new</span> Func2&lt;SampleViewState, SampleResult, SampleViewState&gt;() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> SampleViewState <span class="title">call</span><span class="params">(SampleViewState previousState, SampleResult sampleResult)</span> </span>&#123;</span><br><span class="line">                <span class="keyword">if</span> (sampleResult <span class="keyword">instanceof</span> SampleResult.AResult) &#123;</span><br><span class="line">                    <span class="keyword">return</span> <span class="keyword">new</span> SampleViewState.ASampleViewState();</span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (sampleResult <span class="keyword">instanceof</span> SampleResult.BResult) &#123;</span><br><span class="line">                    <span class="keyword">return</span> <span class="keyword">new</span> SampleViewState.BSampleViewState();</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br></pre></td></tr></table></figure>
-<h4 id="4、Summary："><a href="#4、Summary：" class="headerlink" title="4、Summary："></a>4、Summary：</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">intents.publish(intentSelector)</span><br><span class="line">                .map(intentToAction)</span><br><span class="line">                .compose(bizProcessor)</span><br><span class="line">                .scan(<span class="keyword">new</span> SampleViewState(), reducer);</span><br></pre></td></tr></table></figure>
-<h3 id="（三）实现问题："><a href="#（三）实现问题：" class="headerlink" title="（三）实现问题："></a>（三）实现问题：</h3><h4 id="问题Ⅰ：前后相同的ViewState，会触发UI造成不必要的刷新。"><a href="#问题Ⅰ：前后相同的ViewState，会触发UI造成不必要的刷新。" class="headerlink" title="问题Ⅰ：前后相同的ViewState，会触发UI造成不必要的刷新。"></a>问题Ⅰ：前后相同的ViewState，会触发UI造成不必要的刷新。</h4><p>解决：通过distinctUntilChanged（）来过滤前后两次的scan（）结果，不相同的ViewState才进行刷新。</p>
-<h4 id="问题Ⅱ：当在onConfigurationChanged时，数据流无法保持，会被重新创建。无法应用在屏幕旋转但需要保持最近展示数据的情景。（数据流在onCreate时订阅subscribe，onDestory时unSubscribe）"><a href="#问题Ⅱ：当在onConfigurationChanged时，数据流无法保持，会被重新创建。无法应用在屏幕旋转但需要保持最近展示数据的情景。（数据流在onCreate时订阅subscribe，onDestory时unSubscribe）" class="headerlink" title="问题Ⅱ：当在onConfigurationChanged时，数据流无法保持，会被重新创建。无法应用在屏幕旋转但需要保持最近展示数据的情景。（数据流在onCreate时订阅subscribe，onDestory时unSubscribe）"></a>问题Ⅱ：当在onConfigurationChanged时，数据流无法保持，会被重新创建。无法应用在屏幕旋转但需要保持最近展示数据的情景。（数据流在onCreate时订阅subscribe，onDestory时unSubscribe）</h4><p>解决：<br>A、对于流的结果ViewState，需要进行缓存，可以通过replay(） +  autoConnect（）或者BehaviorSubject实现<br>B、对于流的起始输入，需要保持在内存，不受生命周期影响。可以通过使用一个静态的PublishSubject来中转View层的Intent输入。</p>
-<h2 id="五、使用效果"><a href="#五、使用效果" class="headerlink" title="五、使用效果"></a>五、使用效果</h2><p>（1）所有异步逻辑收归到同一条流，View层只进行响应，因此会</p>
-<ul>
-<li>便于代码跟踪和调试</li>
-<li>便于解决时序问题</li>
-<li>便于组织异步代码</li>
-</ul>
-<p>（2）流是单向的，因此会</p>
-<ul>
-<li>消除额外的“暗箱操作”</li>
-<li>更直观更容易理解业务逻辑（都有唯一和相同的输入输出）</li>
-</ul>
-<h2 id="六、问题思考"><a href="#六、问题思考" class="headerlink" title="六、问题思考"></a>六、问题思考</h2><p>这套开发模式（框架）并不是解决问题的“银弹”，会有以下问题</p>
-<ul>
-<li>小粒度修改，修改成本大：因为需要统一的收归处理，因此小粒度的对View的增删修改，都需要全流程修改，没有像之前MVC的灵活方便。</li>
-<li>业务复杂后，收归成本大：因为统一收归里需要处理每种Action和Result。业务复杂后，在收归处会有大量的if-else if-else 以及switch 处理。</li>
-<li>RxJava的学习成本</li>
-</ul>
-<p>因此需要针对核心业务或业务的核心数据，灵活采用能解决主要矛盾的框架或模式，才是“银弹”。</p>
-<h2 id="七、相关参考"><a href="#七、相关参考" class="headerlink" title="七、相关参考"></a>七、相关参考</h2><ol>
-<li><a href="https://facebook.github.io/flux/" target="_blank" rel="noopener">https://facebook.github.io/flux/</a></li>
-<li><a href="https://cycle.js.org/" target="_blank" rel="noopener">https://cycle.js.org/</a></li>
-<li><a href="https://www.infoq.com/news/2014/05/facebook-mvc-flux" target="_blank" rel="noopener">https://www.infoq.com/news/2014/05/facebook-mvc-flux</a></li>
-<li><a href="http://jakewharton.com/managing-the-reactive-world-with-rxjava/" target="_blank" rel="noopener">http://jakewharton.com/managing-the-reactive-world-with-rxjava/</a></li>
-<li><a href="http://hannesdorfmann.com/android/mosby3-mvi-1" target="_blank" rel="noopener">http://hannesdorfmann.com/android/mosby3-mvi-1</a></li>
-<li><a href="https://github.com/oldergod/android-architecture/tree/todo-mvi-rxjava" target="_blank" rel="noopener">https://github.com/oldergod/android-architecture/tree/todo-mvi-rxjava</a></li>
-<li><a href="https://www.jianshu.com/p/42d77c577ff4" target="_blank" rel="noopener">https://www.jianshu.com/p/42d77c577ff4</a></li>
-<li><a href="https://www.cnblogs.com/gujf2016/p/5780086.html" target="_blank" rel="noopener">https://www.cnblogs.com/gujf2016/p/5780086.html</a></li>
-</ol>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/03/21/MVI/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>

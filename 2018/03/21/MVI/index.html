@@ -79,13 +79,13 @@
 
 
 
-<meta name="description" content="一、业务问题个人负责维护过的几个业务，都以MVC、MVP模式来设计。随着业务发展，出现以下问题：  改动一处Model牵连数处View，难以测试 View的更新时序不一，难以调试 View、Model调用源头过多，难以跟踪  二、问题分析对整体业务进行了熟悉和梳理后，发现架构情况（单以MVC为例）如图：   当业务复杂后，修改Model或者View后，他们有可能会引起多个其他MV的变化。这些“暗箱">
+<meta name="description" content="一、业务问题个人负责维护过的几个业务，都以MVC、MVP模式来设计。随着业务发展，出现以下问题：  改动一处Model牵连数处View，难以测试 View的更新时序不一，难以调试 View、Model调用源头过多，难以跟踪  二、问题分析对整体业务进行了熟悉和梳理后，发现架构情况（单以MVC为例）如图：">
 <meta name="keywords" content="architecture">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Thinking in MVI">
 <meta property="og:url" content="http://yoursite.com/2018/03/21/MVI/index.html">
 <meta property="og:site_name" content="NgWaiKong&#39;s Blog">
-<meta property="og:description" content="一、业务问题个人负责维护过的几个业务，都以MVC、MVP模式来设计。随着业务发展，出现以下问题：  改动一处Model牵连数处View，难以测试 View的更新时序不一，难以调试 View、Model调用源头过多，难以跟踪  二、问题分析对整体业务进行了熟悉和梳理后，发现架构情况（单以MVC为例）如图：   当业务复杂后，修改Model或者View后，他们有可能会引起多个其他MV的变化。这些“暗箱">
+<meta property="og:description" content="一、业务问题个人负责维护过的几个业务，都以MVC、MVP模式来设计。随着业务发展，出现以下问题：  改动一处Model牵连数处View，难以测试 View的更新时序不一，难以调试 View、Model调用源头过多，难以跟踪  二、问题分析对整体业务进行了熟悉和梳理后，发现架构情况（单以MVC为例）如图：">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://m.qpic.cn/psb?/V10Sw18W1Je6qM/98yuLBH7e4bFca6OuslJp0cpBbwTGAuSlBWUjAscuYM!/b/dEABAAAAAAAA&bo=XQHIAF0ByAADFzI!&rf=viewer_4&t=5">
 <meta property="og:image" content="http://m.qpic.cn/psb?/V10Sw18W1Je6qM/GBy37MY70nI7bnfTY4QOugvyOl*rlxMtduo5GoZIiv0!/b/dEUBAAAAAAAA&bo=9ADIAPQAyAADFzI!&rf=viewer_4&t=5">
@@ -93,10 +93,10 @@
 <meta property="og:image" content="http://m.qpic.cn/psb?/V10Sw18W1Je6qM/zuBoEqyrxNgrDR4nQX6CBAr2.WVVt.arzCrtpDIBhiY!/b/dFYBAAAAAAAA&bo=4gHIAOIByAADFzI!&rf=viewer_4&t=5">
 <meta property="og:image" content="http://m.qpic.cn/psb?/V10Sw18W1Je6qM/mJkKUupvtQWMs57vjeeHNnftb0ze8Gctqtb0iHnpfYE!/b/dPMAAAAAAAAA&bo=qwHIAKsByAADFzI!&rf=viewer_4&t=5">
 <meta property="og:image" content="http://m.qpic.cn/psb?/V10Sw18W1Je6qM/xzYY37GAMtFpO8OJQz6u2qDZw2epd7gcKR9iQyH28oA!/b/dEIBAAAAAAAA&bo=YgHIAGIByAADFzI!&rf=viewer_4&t=5">
-<meta property="og:updated_time" content="2018-03-21T05:24:12.770Z">
+<meta property="og:updated_time" content="2018-03-21T05:27:36.455Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Thinking in MVI">
-<meta name="twitter:description" content="一、业务问题个人负责维护过的几个业务，都以MVC、MVP模式来设计。随着业务发展，出现以下问题：  改动一处Model牵连数处View，难以测试 View的更新时序不一，难以调试 View、Model调用源头过多，难以跟踪  二、问题分析对整体业务进行了熟悉和梳理后，发现架构情况（单以MVC为例）如图：   当业务复杂后，修改Model或者View后，他们有可能会引起多个其他MV的变化。这些“暗箱">
+<meta name="twitter:description" content="一、业务问题个人负责维护过的几个业务，都以MVC、MVP模式来设计。随着业务发展，出现以下问题：  改动一处Model牵连数处View，难以测试 View的更新时序不一，难以调试 View、Model调用源头过多，难以跟踪  二、问题分析对整体业务进行了熟悉和梳理后，发现架构情况（单以MVC为例）如图：">
 <meta name="twitter:image" content="http://m.qpic.cn/psb?/V10Sw18W1Je6qM/98yuLBH7e4bFca6OuslJp0cpBbwTGAuSlBWUjAscuYM!/b/dEABAAAAAAAA&bo=XQHIAF0ByAADFzI!&rf=viewer_4&t=5">
 
 
@@ -366,6 +366,7 @@
 <li>View、Model调用源头过多，难以跟踪</li>
 </ul>
 <h2 id="二、问题分析"><a href="#二、问题分析" class="headerlink" title="二、问题分析"></a>二、问题分析</h2><p>对整体业务进行了熟悉和梳理后，发现架构情况（单以MVC为例）如图：</p>
+<a id="more"></a>
 <p><img src="http://m.qpic.cn/psb?/V10Sw18W1Je6qM/98yuLBH7e4bFca6OuslJp0cpBbwTGAuSlBWUjAscuYM!/b/dEABAAAAAAAA&amp;bo=XQHIAF0ByAADFzI!&amp;rf=viewer_4&amp;t=5" alt=""><br><img src="http://m.qpic.cn/psb?/V10Sw18W1Je6qM/GBy37MY70nI7bnfTY4QOugvyOl*rlxMtduo5GoZIiv0!/b/dEUBAAAAAAAA&amp;bo=9ADIAPQAyAADFzI!&amp;rf=viewer_4&amp;t=5" alt=""></p>
 <ol>
 <li>当业务复杂后，修改Model或者View后，他们有可能会引起多个其他MV的变化。这些“暗箱操作”缺乏统一管理。</li>
