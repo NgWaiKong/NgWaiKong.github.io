@@ -87,16 +87,16 @@
 <meta property="og:site_name" content="NgWaiKong&#39;s Blog">
 <meta property="og:description" content="Android StateMachine分析状态模式简介 例子：按钮控制电梯状态：电梯有开门、关门、运行、停止、上升、下降、选择楼层等状态。每种状态改变，都有可能根据其他状态来更新处理，如在上升中不能开门。在实际编码中，考虑遍历完各种情况状态，需要引入大量的if…else if 或者 switch case，对可读性、维护性、扩展性带来挑战。 问题：对象如何在每一种状态下表现出不同的行为？ 解决：">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://m.qpic.cn/psb?/V10Sw18W1Je6qM/6IsLRvmnW1cFS*B4ari71XwrrkTYEP2rY0MxGN9EB5A!/b/dGYBAAAAAAAA&bo=OgL5ADoC.QADFzI!&rf=viewer_4&t=5">
-<meta property="og:image" content="http://m.qpic.cn/psb?/V10Sw18W1Je6qM/fZNAy9oD2o.Q2CxoJNsW5LiFC1Qm1fMimKokAnS5ioM!/b/dDABAAAAAAAA&bo=EgOnAgAAAAADF4Y!&rf=viewer_4&t=5">
-<meta property="og:image" content="http://m.qpic.cn/psb?/V10Sw18W1Je6qM/PVWKw2tZaml4ByFwYK8eTjlECv9eapRN7149mnfGN8Y!/b/dEABAAAAAAAA&bo=KwHDAAAAAAADF9s!&rf=viewer_4&t=5">
-<meta property="og:image" content="http://m.qpic.cn/psb?/V10Sw18W1Je6qM/mlhGCRDq3omuRYQAHUl4mT8Va3BmuuzRnBuajV.XuuQ!/b/dDEBAAAAAAAA&bo=LgEkAQAAAAADFzg!&rf=viewer_4&t=5">
-<meta property="og:image" content="http://m.qpic.cn/psb?/V10Sw18W1Je6qM/Y2CRnZcD2jd6TRy7dEIv2F4o9Zam.GGjyLdavSKoUd0!/b/dIMAAAAAAAAA&bo=uQLvAQAAAAADF2c!&rf=viewer_4&t=5">
-<meta property="og:updated_time" content="2018-04-22T13:00:43.126Z">
+<meta property="og:image" content="http://y.photo.qq.com/img?s=5w9WDsIEz&l=y.jpg">
+<meta property="og:image" content="http://y.photo.qq.com/img?s=m9cNCmYFm&l=y.jpg">
+<meta property="og:image" content="http://y.photo.qq.com/img?s=0CnNuz8xW&l=y.jpg">
+<meta property="og:image" content="http://y.photo.qq.com/img?s=GiYRhzUmx&l=y.jpg">
+<meta property="og:image" content="http://y.photo.qq.com/img?s=RDDiVuAkQ&l=y.jpg">
+<meta property="og:updated_time" content="2018-04-22T13:40:16.673Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android StateMachine分析">
 <meta name="twitter:description" content="Android StateMachine分析状态模式简介 例子：按钮控制电梯状态：电梯有开门、关门、运行、停止、上升、下降、选择楼层等状态。每种状态改变，都有可能根据其他状态来更新处理，如在上升中不能开门。在实际编码中，考虑遍历完各种情况状态，需要引入大量的if…else if 或者 switch case，对可读性、维护性、扩展性带来挑战。 问题：对象如何在每一种状态下表现出不同的行为？ 解决：">
-<meta name="twitter:image" content="http://m.qpic.cn/psb?/V10Sw18W1Je6qM/6IsLRvmnW1cFS*B4ari71XwrrkTYEP2rY0MxGN9EB5A!/b/dGYBAAAAAAAA&bo=OgL5ADoC.QADFzI!&rf=viewer_4&t=5">
+<meta name="twitter:image" content="http://y.photo.qq.com/img?s=5w9WDsIEz&l=y.jpg">
 
 
 
@@ -368,14 +368,14 @@
 </li>
 </ul>
 <h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><ul>
-<li>类图：<img src="http://m.qpic.cn/psb?/V10Sw18W1Je6qM/6IsLRvmnW1cFS*B4ari71XwrrkTYEP2rY0MxGN9EB5A!/b/dGYBAAAAAAAA&amp;bo=OgL5ADoC.QADFzI!&amp;rf=viewer_4&amp;t=5" alt=""></li>
+<li>类图：<img src="http://y.photo.qq.com/img?s=5w9WDsIEz&amp;l=y.jpg" alt=""></li>
 <li>Context：持有一个ConcreteState子类的实例，这个实例代表当前状态。当调用request的时候，会所谓到状态类来实现。在例子中就是整个电梯。</li>
 <li>State：定义了一个所有具体状态的共同接口</li>
 <li>ConcreteState：处理来自Context的请求，提供自己对于请求的实现。所以，的那个Context改变状态时，行为也跟着改变。</li>
 </ul>
 <h2 id="Android-StateMachine"><a href="#Android-StateMachine" class="headerlink" title="Android StateMachine"></a>Android StateMachine</h2><p>Android系统的StateMachine（<a href="https://android.googlesource.com/platform/frameworks/base/+/master/core/java/com/android/internal/util/StateMachine.java）是一个状态模式的应用，StateMachine是一个分层处理消息的状态机，并且是能够有分层排列状态。" target="_blank" rel="noopener">https://android.googlesource.com/platform/frameworks/base/+/master/core/java/com/android/internal/util/StateMachine.java）是一个状态模式的应用，StateMachine是一个分层处理消息的状态机，并且是能够有分层排列状态。</a></p>
 <h3 id="实现架构"><a href="#实现架构" class="headerlink" title="实现架构"></a>实现架构</h3><ul>
-<li>类图：<img src="http://m.qpic.cn/psb?/V10Sw18W1Je6qM/fZNAy9oD2o.Q2CxoJNsW5LiFC1Qm1fMimKokAnS5ioM!/b/dDABAAAAAAAA&amp;bo=EgOnAgAAAAADF4Y!&amp;rf=viewer_4&amp;t=5" alt=""></li>
+<li>类图：<img src="http://y.photo.qq.com/img?s=m9cNCmYFm&amp;l=y.jpg" alt=""></li>
 <li>StateMachine：构造函数为Protected，不能实例化，需要子类进行构造。transitionTo用于改变StateMachine的状态</li>
 <li>IState、State、StateInfo：State继承IState接口，StateInfo是State更丰富信息封装，表示一个State的是否正在被状态机使用和该State的父状态。StateMachine进入状态时调用enter，结束状态时调用exit，处理行为processMeesage。</li>
 <li>SmHandler：是消息处理派发和状态控制切换的核心，运行在单独的线程上。其中mStateStack和mTempStateStack是一个数组栈，用于保存状态机中的链式状态关系。mInitialState保存初始状态，mDestState保存切换的目的状态。</li>
@@ -424,7 +424,7 @@
 <li>确认父状态情况：判断是否需要添加父状态，如果需要，将会递归加入</li>
 <li>若首次加入新状态，则构造StateInfo，并保存到mStateInfo的HashMap&lt;State, StateInfo&gt;中，若非首次，则沿用以前的状态。</li>
 <li>在StateInfo中记录状态和父状态的关系。</li>
-<li>图示：<img src="http://m.qpic.cn/psb?/V10Sw18W1Je6qM/PVWKw2tZaml4ByFwYK8eTjlECv9eapRN7149mnfGN8Y!/b/dEABAAAAAAAA&amp;bo=KwHDAAAAAAADF9s!&amp;rf=viewer_4&amp;t=5" alt=""></li>
+<li>图示：<img src="http://y.photo.qq.com/img?s=0CnNuz8xW&amp;l=y.jpg" alt=""></li>
 </ol>
 <h4 id="二、启动状态机"><a href="#二、启动状态机" class="headerlink" title="二、启动状态机"></a>二、启动状态机</h4><p>完成状态添加后，需要调用start（）来启动状态机，start函数最终会进入到SmHandler的completeConstruction函数</p>
 <pre><code>private final void completeConstruction() {  
@@ -512,7 +512,7 @@ private final void invokeEnterMethods(int stateStackEnteringIndex) {
 <li>performTransitions函数来切换状态，同时设置mIsConstructionCompleted为true</li>
 <li>SmHandler在以后的消息处理过程中不再重启状态机</li>
 </ol>
-<h4 id="三、切换状态"><a href="#三、切换状态" class="headerlink" title="三、切换状态"></a>三、切换状态</h4><p><img src="http://m.qpic.cn/psb?/V10Sw18W1Je6qM/mlhGCRDq3omuRYQAHUl4mT8Va3BmuuzRnBuajV.XuuQ!/b/dDEBAAAAAAAA&amp;bo=LgEkAQAAAAADFzg!&amp;rf=viewer_4&amp;t=5" alt="">以由S1切换到P2为例。</p>
+<h4 id="三、切换状态"><a href="#三、切换状态" class="headerlink" title="三、切换状态"></a>三、切换状态</h4><p><img src="http://y.photo.qq.com/img?s=GiYRhzUmx&amp;l=y.jpg" alt="">以由S1切换到P2为例。</p>
 <ol>
 <li>mStateStack={P0,P1,S1},mTempStateStack={S1,P1,P0}</li>
 <li>以P2为起始节点，同样遍历状态节点树，查找未激活的所有节点，并保存到mTempStateStack数组中,mTempStateStack={P2,P0}</li>
@@ -596,7 +596,7 @@ private static class LogRecords {
     private boolean mLogOnlyTransitions = false;
 }
 </code></pre><h2 id="附："><a href="#附：" class="headerlink" title="附："></a>附：</h2><ol>
-<li>对<a href="[https://android.googlesource.com/platform/frameworks/base/+/master/core/java/com/android/internal/util/StateMachine.java">StateMachine</a>中的注释例子进行了流程梳理，以下为图示:<br><img src="http://m.qpic.cn/psb?/V10Sw18W1Je6qM/Y2CRnZcD2jd6TRy7dEIv2F4o9Zam.GGjyLdavSKoUd0!/b/dIMAAAAAAAAA&amp;bo=uQLvAQAAAAADF2c!&amp;rf=viewer_4&amp;t=5" alt=""></li>
+<li>对<a href="[https://android.googlesource.com/platform/frameworks/base/+/master/core/java/com/android/internal/util/StateMachine.java">StateMachine</a>中的注释例子进行了流程梳理，以下为图示:<br><img src="http://y.photo.qq.com/img?s=RDDiVuAkQ&amp;l=y.jpg" alt=""></li>
 <li>Android FrameWork中使用到StateMachine的模块有：MediaPlayer、WifiStateMachine、BluetoothAdapterStateMachine、DataConnection、DhcpStateMachine，RilMessageDecoder等</li>
 </ol>
 <h2 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h2><ul>
