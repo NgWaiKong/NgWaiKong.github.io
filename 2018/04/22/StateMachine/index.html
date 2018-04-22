@@ -92,7 +92,7 @@
 <meta property="og:image" content="http://m.qpic.cn/psb?/V10Sw18W1Je6qM/PVWKw2tZaml4ByFwYK8eTjlECv9eapRN7149mnfGN8Y!/b/dEABAAAAAAAA&bo=KwHDAAAAAAADF9s!&rf=viewer_4&t=5">
 <meta property="og:image" content="http://m.qpic.cn/psb?/V10Sw18W1Je6qM/mlhGCRDq3omuRYQAHUl4mT8Va3BmuuzRnBuajV.XuuQ!/b/dDEBAAAAAAAA&bo=LgEkAQAAAAADFzg!&rf=viewer_4&t=5">
 <meta property="og:image" content="http://m.qpic.cn/psb?/V10Sw18W1Je6qM/Y2CRnZcD2jd6TRy7dEIv2F4o9Zam.GGjyLdavSKoUd0!/b/dIMAAAAAAAAA&bo=uQLvAQAAAAADF2c!&rf=viewer_4&t=5">
-<meta property="og:updated_time" content="2018-04-22T12:38:03.673Z">
+<meta property="og:updated_time" content="2018-04-22T12:44:23.914Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android StateMachine分析">
 <meta name="twitter:description" content="Android StateMachine分析状态模式简介 例子：按钮控制电梯状态：电梯有开门、关门、运行、停止、上升、下降、选择楼层等状态。每种状态改变，都有可能根据其他状态来更新处理，如在上升中不能开门。在实际编码中，考虑遍历完各种情况状态，需要引入大量的if…else if 或者 switch case，对可读性、维护性、扩展性带来挑战。 问题：对象如何在每一种状态下表现出不同的行为？ 解决：">
@@ -363,6 +363,9 @@
 <li>问题：对象如何在每一种状态下表现出不同的行为？</li>
 <li>解决：状态模式：允许一个对象在其内部状态改变时改变它的行为。对象看起来似乎修改了它的类。（第一句话解释：行为会随内部变化而变化，如在电梯停止和上升时，点击选择，将会得到不一样的行为。第二句话解释：从外部角度来看，如果使用的对象能够完全改变它的行为，那么这个对象会是其他类的实例化。但实际上它只是引用了不同状态对象来造成类改变假象）</li>
 <li>适用：一个对象的行为取决于它的状态；代码中包含大量与对象状态有关的条件语句。</li>
+<li>优缺点：优点：通过将特定状态相关的行为局部化，并且将不同状态的行为分割开来来实现解耦；使得状态转换显式化。缺点：增加系统类和对象的个数，实现都较为复杂，如果使用不当将导致程序结构和代码的混乱。</li>
+<li><a id="more"></a>
+</li>
 </ul>
 <h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><ul>
 <li>类图：<img src="http://m.qpic.cn/psb?/V10Sw18W1Je6qM/6IsLRvmnW1cFS*B4ari71XwrrkTYEP2rY0MxGN9EB5A!/b/dGYBAAAAAAAA&amp;bo=OgL5ADoC.QADFzI!&amp;rf=viewer_4&amp;t=5" alt=""></li>
