@@ -92,7 +92,7 @@
 <meta property="og:image" content="http://m.qpic.cn/psb?/V10Sw18W1Je6qM/PVWKw2tZaml4ByFwYK8eTjlECv9eapRN7149mnfGN8Y!/b/dEABAAAAAAAA&bo=KwHDAAAAAAADF9s!&rf=viewer_4&t=5">
 <meta property="og:image" content="http://m.qpic.cn/psb?/V10Sw18W1Je6qM/mlhGCRDq3omuRYQAHUl4mT8Va3BmuuzRnBuajV.XuuQ!/b/dDEBAAAAAAAA&bo=LgEkAQAAAAADFzg!&rf=viewer_4&t=5">
 <meta property="og:image" content="http://m.qpic.cn/psb?/V10Sw18W1Je6qM/Y2CRnZcD2jd6TRy7dEIv2F4o9Zam.GGjyLdavSKoUd0!/b/dIMAAAAAAAAA&bo=uQLvAQAAAAADF2c!&rf=viewer_4&t=5">
-<meta property="og:updated_time" content="2018-04-22T12:44:23.914Z">
+<meta property="og:updated_time" content="2018-04-22T13:00:43.126Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android StateMachine分析">
 <meta name="twitter:description" content="Android StateMachine分析状态模式简介 例子：按钮控制电梯状态：电梯有开门、关门、运行、停止、上升、下降、选择楼层等状态。每种状态改变，都有可能根据其他状态来更新处理，如在上升中不能开门。在实际编码中，考虑遍历完各种情况状态，需要引入大量的if…else if 或者 switch case，对可读性、维护性、扩展性带来挑战。 问题：对象如何在每一种状态下表现出不同的行为？ 解决：">
@@ -577,7 +577,7 @@ private final void invokeEnterMethods(int stateStackEnteringIndex) {
 <li>消息处理过程是从mStateStack栈顶派发到栈底，直到该消息被处理</li>
 <li>当所有状态的processMessage返回false时，会调用unhandleMessage</li>
 </ol>
-<h3 id="五、日志输出"><a href="#五、日志输出" class="headerlink" title="五、日志输出"></a>五、日志输出</h3><p>整个框架通过LogRec封装日志信息，LogRecords来进行日志记录，收归了整个框架的流程日志</p>
+<h4 id="五、日志输出"><a href="#五、日志输出" class="headerlink" title="五、日志输出"></a>五、日志输出</h4><p>整个框架通过LogRec封装日志信息，LogRecords来进行日志记录，收归了整个框架的流程日志</p>
 <pre><code>public static class LogRec {
     private StateMachine mSm;
     private long mTime;
@@ -599,8 +599,7 @@ private static class LogRecords {
 <li>对<a href="[https://android.googlesource.com/platform/frameworks/base/+/master/core/java/com/android/internal/util/StateMachine.java">StateMachine</a>中的注释例子进行了流程梳理，以下为图示:<br><img src="http://m.qpic.cn/psb?/V10Sw18W1Je6qM/Y2CRnZcD2jd6TRy7dEIv2F4o9Zam.GGjyLdavSKoUd0!/b/dIMAAAAAAAAA&amp;bo=uQLvAQAAAAADF2c!&amp;rf=viewer_4&amp;t=5" alt=""></li>
 <li>Android FrameWork中使用到StateMachine的模块有：MediaPlayer、WifiStateMachine、BluetoothAdapterStateMachine、DataConnection、DhcpStateMachine，RilMessageDecoder等</li>
 </ol>
-<p>##参考：</p>
-<ul>
+<h2 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h2><ul>
 <li><a href="https://android.googlesource.com/platform/frameworks/base/+/master/core/java/com/android/internal/util/StateMachine.java" target="_blank" rel="noopener">https://android.googlesource.com/platform/frameworks/base/+/master/core/java/com/android/internal/util/StateMachine.java</a></li>
 <li>Head First设计模式</li>
 <li><a href="http://design-patterns.readthedocs.io/zh_CN/latest/behavioral_patterns/state.html" target="_blank" rel="noopener">http://design-patterns.readthedocs.io/zh_CN/latest/behavioral_patterns/state.html</a></li>
@@ -610,6 +609,7 @@ private static class LogRecords {
 <li><a href="http://www.cnblogs.com/bastard/archive/2012/06/05/2536258.html" target="_blank" rel="noopener">http://www.cnblogs.com/bastard/archive/2012/06/05/2536258.html</a></li>
 <li><a href="https://www.jianshu.com/p/a5435a05ae48" target="_blank" rel="noopener">https://www.jianshu.com/p/a5435a05ae48</a></li>
 </ul>
+<h2 id="致敬："><a href="#致敬：" class="headerlink" title="致敬："></a>致敬：</h2><p><a href="https://github.com/winksaville" target="_blank" rel="noopener">Wink Saville</a>是Android StateMachine的作者，在退休之后依然在repositories上有持续的commit，向Wink Saville和这份热爱致敬。</p>
 
       
     </div>
@@ -796,7 +796,7 @@ private static class LogRecords {
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Android-StateMachine分析"><span class="nav-number">1.</span> <span class="nav-text">Android StateMachine分析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#状态模式"><span class="nav-number">1.1.</span> <span class="nav-text">状态模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#简介"><span class="nav-number">1.1.1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现"><span class="nav-number">1.1.2.</span> <span class="nav-text">实现</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Android-StateMachine"><span class="nav-number">1.2.</span> <span class="nav-text">Android StateMachine</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#实现架构"><span class="nav-number">1.2.1.</span> <span class="nav-text">实现架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现细节"><span class="nav-number">1.2.2.</span> <span class="nav-text">实现细节</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#一、状态添加"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">一、状态添加</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#二、启动状态机"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">二、启动状态机</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#三、切换状态"><span class="nav-number">1.2.2.3.</span> <span class="nav-text">三、切换状态</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#四、消息处理"><span class="nav-number">1.2.2.4.</span> <span class="nav-text">四、消息处理</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#五、日志输出"><span class="nav-number">1.2.3.</span> <span class="nav-text">五、日志输出</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#附："><span class="nav-number">1.3.</span> <span class="nav-text">附：</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Android-StateMachine分析"><span class="nav-number">1.</span> <span class="nav-text">Android StateMachine分析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#状态模式"><span class="nav-number">1.1.</span> <span class="nav-text">状态模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#简介"><span class="nav-number">1.1.1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现"><span class="nav-number">1.1.2.</span> <span class="nav-text">实现</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Android-StateMachine"><span class="nav-number">1.2.</span> <span class="nav-text">Android StateMachine</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#实现架构"><span class="nav-number">1.2.1.</span> <span class="nav-text">实现架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现细节"><span class="nav-number">1.2.2.</span> <span class="nav-text">实现细节</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#一、状态添加"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">一、状态添加</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#二、启动状态机"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">二、启动状态机</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#三、切换状态"><span class="nav-number">1.2.2.3.</span> <span class="nav-text">三、切换状态</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#四、消息处理"><span class="nav-number">1.2.2.4.</span> <span class="nav-text">四、消息处理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#五、日志输出"><span class="nav-number">1.2.2.5.</span> <span class="nav-text">五、日志输出</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#附："><span class="nav-number">1.3.</span> <span class="nav-text">附：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考："><span class="nav-number">1.4.</span> <span class="nav-text">参考：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#致敬："><span class="nav-number">1.5.</span> <span class="nav-text">致敬：</span></a></li></ol></li></ol></div>
             
 
           </div>
