@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="performance," />
 
 
 
@@ -80,8 +80,9 @@
 
 
 <meta name="description" content="流直播卡顿监控一、背景流直播业务中多场大型直播（蔡徐坤、TFBOYS）出现用户投诉直播画面卡顿问题，但客户端在直播时无法更快更直接定位问题，因此针对已知问题增加debug页面，输出关键信息，方便快速响应。 二、问题汇总在当前业务中，直播视频数据流程是如下：  ①直播现场麦克风、摄像头进行音视频数据采集，上传后台 ②后台进行编码和封装成HLS（进行TS切片和M3U8更新） ③后台分发到各CDN ④客">
+<meta name="keywords" content="performance">
 <meta property="og:type" content="article">
-<meta property="og:title" content="NgWaiKong&#39;s Blog">
+<meta property="og:title" content="流信息卡顿监控">
 <meta property="og:url" content="http://yoursite.com/2018/09/02/流信息监控/index.html">
 <meta property="og:site_name" content="NgWaiKong&#39;s Blog">
 <meta property="og:description" content="流直播卡顿监控一、背景流直播业务中多场大型直播（蔡徐坤、TFBOYS）出现用户投诉直播画面卡顿问题，但客户端在直播时无法更快更直接定位问题，因此针对已知问题增加debug页面，输出关键信息，方便快速响应。 二、问题汇总在当前业务中，直播视频数据流程是如下：  ①直播现场麦克风、摄像头进行音视频数据采集，上传后台 ②后台进行编码和封装成HLS（进行TS切片和M3U8更新） ③后台分发到各CDN ④客">
@@ -89,9 +90,9 @@
 <meta property="og:image" content="http://m.qpic.cn/psb?/V10Sw18W02Zr0F/FDX0M.jeHIq*e700un48k1fvVGNoYsN2QDIB3noSlkk!/b/dDYBAAAAAAAA&bo=gAc4BAAAAAADV8k!&rf=viewer_4&t=5">
 <meta property="og:image" content="http://m.qpic.cn/psb?/V10Sw18W02Zr0F/wXvIbeJYogPE9qDD4FrVE765tAFdlMLkC8CIpDLMsYM!/b/dDQBAAAAAAAA&bo=0AJxAQAAAAARF4I!&rf=viewer_4&t=5">
 <meta property="og:image" content="http://m.qpic.cn/psb?/V10Sw18W02Zr0F/f3s3k0Za5OSVsG0McdP4kVSQTDGmot9Vjlpza*dpOPQ!/b/dDQBAAAAAAAA&bo=PQLMAAAAAAARF9M!&rf=viewer_4&t=5">
-<meta property="og:updated_time" content="2018-09-02T07:17:56.380Z">
+<meta property="og:updated_time" content="2018-09-02T07:23:40.542Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="NgWaiKong&#39;s Blog">
+<meta name="twitter:title" content="流信息卡顿监控">
 <meta name="twitter:description" content="流直播卡顿监控一、背景流直播业务中多场大型直播（蔡徐坤、TFBOYS）出现用户投诉直播画面卡顿问题，但客户端在直播时无法更快更直接定位问题，因此针对已知问题增加debug页面，输出关键信息，方便快速响应。 二、问题汇总在当前业务中，直播视频数据流程是如下：  ①直播现场麦克风、摄像头进行音视频数据采集，上传后台 ②后台进行编码和封装成HLS（进行TS切片和M3U8更新） ③后台分发到各CDN ④客">
 <meta name="twitter:image" content="http://m.qpic.cn/psb?/V10Sw18W02Zr0F/FDX0M.jeHIq*e700un48k1fvVGNoYsN2QDIB3noSlkk!/b/dDYBAAAAAAAA&bo=gAc4BAAAAAADV8k!&rf=viewer_4&t=5">
 
@@ -129,7 +130,7 @@
 
 
 
-  <title> | NgWaiKong's Blog</title>
+  <title>流信息卡顿监控 | NgWaiKong's Blog</title>
   
 
 
@@ -283,7 +284,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline"></h1>
+          <h1 class="post-title" itemprop="name headline">流信息卡顿监控</h1>
         
 
         <div class="post-meta">
@@ -295,7 +296,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-02T15:18:09+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-02T00:00:00+08:00">
                 2018-09-02
               </time>
             
@@ -305,6 +306,28 @@
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/performance/" itemprop="url" rel="index">
+                    <span itemprop="name">performance</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -349,13 +372,12 @@
 <li>播放器读取数据不及时（流程④客户端网络问题）</li>
 <li>播放器音画不同步（流程④客户端性能问题）</li>
 </ol>
+<a id="more"></a>
 <h3 id="三、问题监控"><a href="#三、问题监控" class="headerlink" title="三、问题监控"></a>三、问题监控</h3><p>针对上述问题，在直播页面增加了debug页面，对关键信息输出：</p>
 <p><img src="http://m.qpic.cn/psb?/V10Sw18W02Zr0F/FDX0M.jeHIq*e700un48k1fvVGNoYsN2QDIB3noSlkk!/b/dDYBAAAAAAAA&amp;bo=gAc4BAAAAAADV8k!&amp;rf=viewer_4&amp;t=5" alt=""></p>
 <ul>
-<li><p>当前音视频AVPacket的pts信息（监控问题1）</p>
-</li>
-<li><p>当前M3U8请求包、M3U8内容信息（监控问题2）</p>
-</li>
+<li>当前音视频AVPacket的pts信息（监控问题1）</li>
+<li>当前M3U8请求包、M3U8内容信息（监控问题2）</li>
 <li>当前ts分片请求包信息（监控问题3）</li>
 <li>播放器音视频读取AVPacket的时间戳、AVFrame解码前后、当前展示帧的对应时间戳；当前解码帧率；（监控问题4、5）</li>
 </ul>
@@ -396,10 +418,8 @@
 <p>针对以上问题，记录了客户端<strong>音视频当前解封装、解码、渲染的帧时间戳</strong>：</p>
 <ul>
 <li>发生二次缓冲时，比较当前音频解封装数据和解码数据，可以定位播放器数据读取情况</li>
-<li><p>比较当前音频展示帧pts和视频展示帧pts，可以得到音画不同步的程度</p>
-</li>
-<li><p>比较音视频解封装数据和解码数据时间戳可以量化出音视频解码性能</p>
-</li>
+<li>比较当前音频展示帧pts和视频展示帧pts，可以得到音画不同步的程度</li>
+<li>比较音视频解封装数据和解码数据时间戳可以量化出音视频解码性能</li>
 <li>计算音视频单位时间内展示的帧数，来量化出音视频流的当前FPS</li>
 </ul>
 <p>通过以上数据，<strong>实时监控到播放器当前请求、解码数据量以及音画不同步的程度</strong>，来帮助判断用户当前<strong>网络环境、CPU性能</strong>对卡顿的影响。</p>
@@ -459,6 +479,12 @@
     
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/performance/" rel="tag"># performance</a>
+          
+        </div>
       
 
       
