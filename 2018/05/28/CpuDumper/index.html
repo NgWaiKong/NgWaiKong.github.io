@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.1/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","version":"8.1.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}};
+  </script>
+<meta name="description" content="获取CPU情况方法CPU是性能优化其中一环，对常规的CPU收集手段整理并进行沉淀。代码：CpuDumper 一、CPU占用1、proc&#x2F;stat proc&#x2F;stat节点记录的是系统进程整体CPU的统计信息 文件中的时间单位，sysconf(_SC_CLK_TCK)一般地定义为jiffies(一般地等于10ms) 总的cpu时间 &#x3D; 前七个变量（user, nice, system, idle, i">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android获取CPU使用">
+<meta property="og:url" content="http://example.com/2018/05/28/CpuDumper/index.html">
+<meta property="og:site_name" content="NYK&#39;s Blog">
+<meta property="og:description" content="获取CPU情况方法CPU是性能优化其中一环，对常规的CPU收集手段整理并进行沉淀。代码：CpuDumper 一、CPU占用1、proc&#x2F;stat proc&#x2F;stat节点记录的是系统进程整体CPU的统计信息 文件中的时间单位，sysconf(_SC_CLK_TCK)一般地定义为jiffies(一般地等于10ms) 总的cpu时间 &#x3D; 前七个变量（user, nice, system, idle, i">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2018-05-27T16:00:00.000Z">
+<meta property="article:modified_time" content="2020-12-18T09:07:06.000Z">
+<meta property="article:author" content="Ng WaiKong">
+<meta property="article:tag" content="performance">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2018/05/28/CpuDumper/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+<title>Android获取CPU使用 | NYK's Blog</title>
+  
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">NYK's Blog</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Keep walking</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <section class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96CPU%E6%83%85%E5%86%B5%E6%96%B9%E6%B3%95"><span class="nav-number">1.</span> <span class="nav-text">获取CPU情况方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81CPU%E5%8D%A0%E7%94%A8"><span class="nav-number">1.1.</span> <span class="nav-text">一、CPU占用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81proc-stat"><span class="nav-number">1.1.1.</span> <span class="nav-text">1、proc&#x2F;stat</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81-proc-pid-stat"><span class="nav-number">1.1.2.</span> <span class="nav-text">2、&#x2F;proc&#x2F;[pid]&#x2F;stat</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E3%80%81-proc-pid-task"><span class="nav-number">1.1.3.</span> <span class="nav-text">3、&#x2F;proc&#x2F;[pid]&#x2F;task</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4%E3%80%81%E7%BB%9F%E8%AE%A1"><span class="nav-number">1.1.4.</span> <span class="nav-text">4、统计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5%E3%80%81%E9%99%84%EF%BC%9Atop-%E5%91%BD%E4%BB%A4"><span class="nav-number">1.1.5.</span> <span class="nav-text">5、附：top 命令</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E5%A0%86%E6%A0%88%E8%8E%B7%E5%8F%96"><span class="nav-number">1.2.</span> <span class="nav-text">二、堆栈获取</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E8%8E%B7%E5%8F%96Java%E5%A0%86%E6%A0%88%EF%BC%881%EF%BC%89"><span class="nav-number">1.2.1.</span> <span class="nav-text">1、获取Java堆栈（1）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81%E8%8E%B7%E5%8F%96Java%E5%A0%86%E6%A0%88%EF%BC%882%EF%BC%89"><span class="nav-number">1.2.2.</span> <span class="nav-text">2、获取Java堆栈（2）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E3%80%81%E8%8E%B7%E5%8F%96Native%E5%A0%86%E6%A0%88"><span class="nav-number">1.2.3.</span> <span class="nav-text">3、获取Native堆栈</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81Android-Profiler%EF%BC%9A"><span class="nav-number">1.3.</span> <span class="nav-text">三、Android Profiler：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E9%99%84%E4%BB%B6"><span class="nav-number">1.4.</span> <span class="nav-text">四、附件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E5%8F%82%E8%80%83"><span class="nav-number">1.5.</span> <span class="nav-text">五、参考</span></a></li></ol></li></ol></div>
+        </section>
+        <!--/noindex-->
+
+        <section class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Ng WaiKong</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">9</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/ngwaikong" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;ngwaikong" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.zhihu.com/people/ngwaikong" title="Zhihu → https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;ngwaikong" rel="noopener" target="_blank"><i class="fab fa-zhihu fa-fw"></i>Zhihu</a>
+      </span>
+  </div>
+
+
+
+        </section>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2018/05/28/CpuDumper/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Ng WaiKong">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="NYK's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Android获取CPU使用
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2018-05-28 00:00:00" itemprop="dateCreated datePublished" datetime="2018-05-28T00:00:00+08:00">2018-05-28</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-12-18 17:07:06" itemprop="dateModified" datetime="2020-12-18T17:07:06+08:00">2020-12-18</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/performance/" itemprop="url" rel="index"><span itemprop="name">performance</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="获取CPU情况方法"><a href="#获取CPU情况方法" class="headerlink" title="获取CPU情况方法"></a>获取CPU情况方法</h1><p>CPU是性能优化其中一环，对常规的CPU收集手段整理并进行沉淀。<br>代码：<a target="_blank" rel="noopener" href="https://github.com/NgWaiKong/CpuDumper">CpuDumper</a></p>
+<h2 id="一、CPU占用"><a href="#一、CPU占用" class="headerlink" title="一、CPU占用"></a>一、CPU占用</h2><h3 id="1、proc-stat"><a href="#1、proc-stat" class="headerlink" title="1、proc/stat"></a>1、proc/stat</h3><ul>
+<li>proc/stat节点记录的是系统进程整体CPU的统计信息</li>
+<li>文件中的时间单位，sysconf(_SC_CLK_TCK)一般地定义为jiffies(一般地等于10ms)</li>
+<li>总的cpu时间 = 前七个变量（user, nice, system, idle, iowait, irq, softirq）之和</li>
+<li>上述时间为一个累计时间，需要在两个时间点分别读一下cpu快照，设为total_time_old 和 total_time_new，则两个值相减即为这段时间内的总CPU时间total_time_delta，然后想办法读一个进程或线程在相同时间段内的cpu时间proc_time_delta, 则该进程或线程的cpu使用率即为（ proc_time_delta / total_time_delta ）* 100% </li>
+<li>项目代码：CpuDumper.dumpSystemRate</li>
+</ul>
+<a id="more"></a>
+
+<h3 id="2、-proc-pid-stat"><a href="#2、-proc-pid-stat" class="headerlink" title="2、/proc/[pid]/stat"></a>2、/proc/[pid]/stat</h3><ul>
+<li>记录的是pid进程整体的CPU统计信息</li>
+<li>总的cpu时间 = 第14、15个变量（utime：该进程处于用户态的时间、stime：该进程处于内核态的时间)之和</li>
+<li>项目代码：CpuDumper.dumpAppRate</li>
+</ul>
+<h3 id="3、-proc-pid-task"><a href="#3、-proc-pid-task" class="headerlink" title="3、/proc/[pid]/task"></a>3、/proc/[pid]/task</h3><ul>
+<li>记录的是pid进程中各线程的CPU统计信息</li>
+<li>各线程总的cpu时间 = 第14、15、16、17个变量（utime + stime + cutime + cstime）</li>
+<li>项目代码：CpuDumper.dumpAppThreadCpu</li>
+</ul>
+<h3 id="4、统计"><a href="#4、统计" class="headerlink" title="4、统计"></a>4、统计</h3><p>计算某一进程或线程的CPU使用率：</p>
+<ul>
+<li>在不同时间点，取得上述3个文件的记录的CPU时间， 各自相减，获得deltaSys，deltaApp，deltaThread</li>
+<li>进程使用率：deltaApp/deltaSys，线程使用率：deltaThread/deltaSys</li>
+</ul>
+<h3 id="5、附：top-命令"><a href="#5、附：top-命令" class="headerlink" title="5、附：top 命令"></a>5、附：top 命令</h3><ul>
+<li><p>获取当前系统各进程或其中线程CPU占用情况</p>
+</li>
+<li><p>常用：<br>adb shell top -s cpu -m 10 -t<br>adb shell top -s cpu -m 10 -t |findstr packagename </p>
+</li>
+<li><p>Usage: top [ -m max_procs ] [ -n iterations ] [ -d delay ] [ -s sort_column ] [-t ] [ -h ] 、<br>  -m num  Maximum number of processes to display. 最多显示多少个进程<br>  -n num  Updates to show before exiting.  刷新次数<br>  -d num  Seconds to wait between updates. 刷新间隔时间（默认5秒）<br>  -s col  Column to sort by (cpu,vss,rss,thr). 按哪列排序<br>  -t      Show threads instead of processes. 显示线程信息而不是进程<br>  -h      Display this help screen.  显示帮助文档 </p>
+</li>
+<li><p>项目代码：cpuDumper.dumpTop(5000, stream);</p>
+<h2 id="二、堆栈获取"><a href="#二、堆栈获取" class="headerlink" title="二、堆栈获取"></a>二、堆栈获取</h2><p>参考系统ANR时，通过kill -3 pid 和debuggerd pid来获取堆栈信息</p>
+<h3 id="1、获取Java堆栈（1）"><a href="#1、获取Java堆栈（1）" class="headerlink" title="1、获取Java堆栈（1）"></a>1、获取Java堆栈（1）</h3></li>
+<li><p>接口Thread.getAllStackTraces().entrySet()</p>
+</li>
+<li><p>项目代码：cpuDumper.dumpJavaStack()</p>
+</li>
+</ul>
+<h3 id="2、获取Java堆栈（2）"><a href="#2、获取Java堆栈（2）" class="headerlink" title="2、获取Java堆栈（2）"></a>2、获取Java堆栈（2）</h3><ul>
+<li>命令adb shell su kill -3 pid</li>
+<li>获取Java线程堆栈</li>
+<li>需要root</li>
+<li>Dump的堆栈信息保存在/data/anr/traces.txt中</li>
+<li>项目代码： kill3Cmd.dump()</li>
+</ul>
+<h3 id="3、获取Native堆栈"><a href="#3、获取Native堆栈" class="headerlink" title="3、获取Native堆栈"></a>3、获取Native堆栈</h3><ul>
+<li>需要root</li>
+<li>命令adb shell su debuggerd -b pid</li>
+<li>-b为输出到console，否则输出到/data/tombstones/(该目录只会存放10个文件，多出会进行覆盖)</li>
+<li>项目代码：cpuDumper.dumpNativeStack()</li>
+</ul>
+<h2 id="三、Android-Profiler："><a href="#三、Android-Profiler：" class="headerlink" title="三、Android Profiler："></a>三、Android Profiler：</h2><ul>
+<li>AndroidStudio 3.0工具</li>
+<li>对CPU部分进行双击，可以直观看到应用内线程和系统线程的占用</li>
+<li>提供对线程dump堆栈方法</li>
+<li>参考<a target="_blank" rel="noopener" href="https://developer.android.com/studio/profile/cpu-profiler?hl=zh-cn">https://developer.android.com/studio/profile/cpu-profiler?hl=zh-cn</a></li>
+</ul>
+<h2 id="四、附件"><a href="#四、附件" class="headerlink" title="四、附件"></a>四、附件</h2><ul>
+<li>nexus手机root工具可以使用Nexus Root tools</li>
+<li>debuggerd命令环境配置：root 后，若debuggerd 无法执行。可以尝试替换可用的debuggerd文件。<br>方法如下：<br>1、进入/data/system/bin/中，对debuggerd文件进行挂载mount（若嫌麻烦，可以下载re文件管理器<a target="_blank" rel="noopener" href="http://android.myapp.com/detail.htm?apkName=com.speedsoftware.rootexplorer%EF%BC%8C%E7%84%B6%E5%90%8E%E5%AF%B9%E6%96%87%E4%BB%B6%E6%8C%82%E8%BD%BD%EF%BC%89">http://android.myapp.com/detail.htm?apkName=com.speedsoftware.rootexplorer，然后对文件挂载）</a><br>2、拷贝附件中的debuggerd_kelvin文件到/data/system/bin/覆盖原先的debuggerd</li>
+</ul>
+<h2 id="五、参考"><a href="#五、参考" class="headerlink" title="五、参考"></a>五、参考</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://www.google.com/search?q=android+cpu&amp;oq=android+cpu&amp;aqs=chrome..69i57j69i60l2j69i65j69i60l2.1761j0j4&amp;sourceid=chrome&amp;ie=UTF-8">https://www.google.com/search?q=android+cpu&amp;oq=android+cpu&amp;aqs=chrome..69i57j69i60l2j69i65j69i60l2.1761j0j4&amp;sourceid=chrome&amp;ie=UTF-8</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/nonmarking/article/details/77924477">https://blog.csdn.net/nonmarking/article/details/77924477</a></li>
+<li><a target="_blank" rel="noopener" href="http://gityuan.com/2016/11/27/native-traces/">http://gityuan.com/2016/11/27/native-traces/</a></li>
+<li><a target="_blank" rel="noopener" href="http://gityuan.com/2016/06/15/android-debuggerd/">http://gityuan.com/2016/06/15/android-debuggerd/</a></li>
+<li><a target="_blank" rel="noopener" href="http://taobaofed.org/blog/2015/12/04/cpu-allocation-profiler/">http://taobaofed.org/blog/2015/12/04/cpu-allocation-profiler/</a></li>
+<li><a target="_blank" rel="noopener" href="http://gityuan.com/2016/12/02/app-not-response/">http://gityuan.com/2016/12/02/app-not-response/</a></li>
+<li><a target="_blank" rel="noopener" href="http://gityuan.com/2016/11/26/art-trace/">http://gityuan.com/2016/11/26/art-trace/</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/performance/" rel="tag"># performance</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2018/04/22/StateMachine/" rel="prev" title="Android StateMachine分析">
+                  <i class="fa fa-chevron-left"></i> Android StateMachine分析
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2018/07/01/%E6%97%A5%E6%9C%AC%E9%97%9C%E8%A5%BF%E9%81%8A%E8%A8%98/" rel="next" title="日本關西遊記">
+                  日本關西遊記 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Ng WaiKong</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+
+</body>
+</html>

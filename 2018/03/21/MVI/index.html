@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.1/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","version":"8.1.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}};
+  </script>
+<meta name="description" content="一、业务问题个人负责维护过的几个业务，都以MVC、MVP模式来设计。随着业务发展，出现以下问题：  改动一处Model牵连数处View，难以测试 View的更新时序不一，难以调试 View、Model调用源头过多，难以跟踪  二、问题分析对整体业务进行了熟悉和梳理后，发现架构情况（单以MVC为例）如图：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Thinking in MVI">
+<meta property="og:url" content="http://example.com/2018/03/21/MVI/index.html">
+<meta property="og:site_name" content="NYK&#39;s Blog">
+<meta property="og:description" content="一、业务问题个人负责维护过的几个业务，都以MVC、MVP模式来设计。随着业务发展，出现以下问题：  改动一处Model牵连数处View，难以测试 View的更新时序不一，难以调试 View、Model调用源头过多，难以跟踪  二、问题分析对整体业务进行了熟悉和梳理后，发现架构情况（单以MVC为例）如图：">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://m.qpic.cn/psb?/V10Sw18W1Je6qM/98yuLBH7e4bFca6OuslJp0cpBbwTGAuSlBWUjAscuYM!/b/dEABAAAAAAAA&bo=XQHIAF0ByAADFzI!&rf=viewer_4&t=5">
+<meta property="og:image" content="http://m.qpic.cn/psb?/V10Sw18W1Je6qM/GBy37MY70nI7bnfTY4QOugvyOl*rlxMtduo5GoZIiv0!/b/dEUBAAAAAAAA&bo=9ADIAPQAyAADFzI!&rf=viewer_4&t=5">
+<meta property="og:image" content="http://m.qpic.cn/psb?/V10Sw18W1Je6qM/RTsxjtcfw96eh*VuOG0UrrazCAHEUAOmSvR7D4mgOUw!/b/dEUBAAAAAAAA&bo=lALIAJQCyAADFzI!&rf=viewer_4&t=5">
+<meta property="og:image" content="http://m.qpic.cn/psb?/V10Sw18W1Je6qM/zuBoEqyrxNgrDR4nQX6CBAr2.WVVt.arzCrtpDIBhiY!/b/dFYBAAAAAAAA&bo=4gHIAOIByAADFzI!&rf=viewer_4&t=5">
+<meta property="og:image" content="http://m.qpic.cn/psb?/V10Sw18W1Je6qM/mJkKUupvtQWMs57vjeeHNnftb0ze8Gctqtb0iHnpfYE!/b/dPMAAAAAAAAA&bo=qwHIAKsByAADFzI!&rf=viewer_4&t=5">
+<meta property="og:image" content="http://m.qpic.cn/psb?/V10Sw18W1Je6qM/xzYY37GAMtFpO8OJQz6u2qDZw2epd7gcKR9iQyH28oA!/b/dEIBAAAAAAAA&bo=YgHIAGIByAADFzI!&rf=viewer_4&t=5">
+<meta property="article:published_time" content="2018-03-20T16:00:00.000Z">
+<meta property="article:modified_time" content="2020-12-18T09:07:06.000Z">
+<meta property="article:author" content="Ng WaiKong">
+<meta property="article:tag" content="architecture">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://m.qpic.cn/psb?/V10Sw18W1Je6qM/98yuLBH7e4bFca6OuslJp0cpBbwTGAuSlBWUjAscuYM!/b/dEABAAAAAAAA&bo=XQHIAF0ByAADFzI!&rf=viewer_4&t=5">
+
+
+<link rel="canonical" href="http://example.com/2018/03/21/MVI/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+<title>Thinking in MVI | NYK's Blog</title>
+  
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">NYK's Blog</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Keep walking</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <section class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E4%B8%9A%E5%8A%A1%E9%97%AE%E9%A2%98"><span class="nav-number">1.</span> <span class="nav-text">一、业务问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E9%97%AE%E9%A2%98%E5%88%86%E6%9E%90"><span class="nav-number">2.</span> <span class="nav-text">二、问题分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E8%A7%A3%E5%86%B3%E6%96%B9%E5%BC%8F"><span class="nav-number">3.</span> <span class="nav-text">三、解决方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81-Flux"><span class="nav-number">3.1.</span> <span class="nav-text">1、 Flux</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9B%BE%E8%BF%B0%EF%BC%9A"><span class="nav-number">3.1.1.</span> <span class="nav-text">图述：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Android%E5%AE%9E%E7%8E%B0%EF%BC%9Ahttps-github-com-lgvalle-android-flux-todo-app"><span class="nav-number">3.1.2.</span> <span class="nav-text">Android实现：https:&#x2F;&#x2F;github.com&#x2F;lgvalle&#x2F;android-flux-todo-app</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81Cycle-js"><span class="nav-number">3.2.</span> <span class="nav-text">2、Cycle.js</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9B%BE%E8%BF%B0%EF%BC%9A-1"><span class="nav-number">3.2.1.</span> <span class="nav-text">图述：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Android%E5%AE%9E%E7%8E%B0%EF%BC%9Ahttps-github-com-sockeqwe-mosby"><span class="nav-number">3.2.2.</span> <span class="nav-text">Android实现：https:&#x2F;&#x2F;github.com&#x2F;sockeqwe&#x2F;mosby</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E3%80%81Managing-State-with-RxJava"><span class="nav-number">3.3.</span> <span class="nav-text">3、Managing State with RxJava</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9B%BE%E8%BF%B0%EF%BC%9A-2"><span class="nav-number">3.3.1.</span> <span class="nav-text">图述：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E5%AE%9E%E7%8E%B0%E7%BB%86%E8%8A%82%EF%BC%9A"><span class="nav-number">4.</span> <span class="nav-text">四、实现细节：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BC%88%E4%B8%80%EF%BC%89MVI%E5%AE%9E%E7%8E%B0%EF%BC%9A"><span class="nav-number">4.1.</span> <span class="nav-text">（一）MVI实现：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BC%88%E4%BA%8C%EF%BC%89%E6%95%B0%E6%8D%AE%E6%B5%81%E5%AE%9E%E7%8E%B0%EF%BC%9A"><span class="nav-number">4.2.</span> <span class="nav-text">（二）数据流实现：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1%E3%80%81Intent-to-Action%EF%BC%9A"><span class="nav-number">4.2.1.</span> <span class="nav-text">1、Intent to Action：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2%E3%80%81Action-to-Result%EF%BC%9A"><span class="nav-number">4.2.2.</span> <span class="nav-text">2、Action to Result：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3%E3%80%81Result-to-ViewState%EF%BC%9A"><span class="nav-number">4.2.3.</span> <span class="nav-text">3、Result to ViewState：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4%E3%80%81Summary%EF%BC%9A"><span class="nav-number">4.2.4.</span> <span class="nav-text">4、Summary：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BC%88%E4%B8%89%EF%BC%89%E5%AE%9E%E7%8E%B0%E9%97%AE%E9%A2%98%EF%BC%9A"><span class="nav-number">4.3.</span> <span class="nav-text">（三）实现问题：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E2%85%A0%EF%BC%9A%E5%89%8D%E5%90%8E%E7%9B%B8%E5%90%8C%E7%9A%84ViewState%EF%BC%8C%E4%BC%9A%E8%A7%A6%E5%8F%91UI%E9%80%A0%E6%88%90%E4%B8%8D%E5%BF%85%E8%A6%81%E7%9A%84%E5%88%B7%E6%96%B0%E3%80%82"><span class="nav-number">4.3.1.</span> <span class="nav-text">问题Ⅰ：前后相同的ViewState，会触发UI造成不必要的刷新。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E2%85%A1%EF%BC%9A%E5%BD%93%E5%9C%A8onConfigurationChanged%E6%97%B6%EF%BC%8C%E6%95%B0%E6%8D%AE%E6%B5%81%E6%97%A0%E6%B3%95%E4%BF%9D%E6%8C%81%EF%BC%8C%E4%BC%9A%E8%A2%AB%E9%87%8D%E6%96%B0%E5%88%9B%E5%BB%BA%E3%80%82%E6%97%A0%E6%B3%95%E5%BA%94%E7%94%A8%E5%9C%A8%E5%B1%8F%E5%B9%95%E6%97%8B%E8%BD%AC%E4%BD%86%E9%9C%80%E8%A6%81%E4%BF%9D%E6%8C%81%E6%9C%80%E8%BF%91%E5%B1%95%E7%A4%BA%E6%95%B0%E6%8D%AE%E7%9A%84%E6%83%85%E6%99%AF%E3%80%82%EF%BC%88%E6%95%B0%E6%8D%AE%E6%B5%81%E5%9C%A8onCreate%E6%97%B6%E8%AE%A2%E9%98%85subscribe%EF%BC%8ConDestory%E6%97%B6unSubscribe%EF%BC%89"><span class="nav-number">4.3.2.</span> <span class="nav-text">问题Ⅱ：当在onConfigurationChanged时，数据流无法保持，会被重新创建。无法应用在屏幕旋转但需要保持最近展示数据的情景。（数据流在onCreate时订阅subscribe，onDestory时unSubscribe）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E4%BD%BF%E7%94%A8%E6%95%88%E6%9E%9C"><span class="nav-number">5.</span> <span class="nav-text">五、使用效果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AD%E3%80%81%E9%97%AE%E9%A2%98%E6%80%9D%E8%80%83"><span class="nav-number">6.</span> <span class="nav-text">六、问题思考</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%83%E3%80%81%E7%9B%B8%E5%85%B3%E5%8F%82%E8%80%83"><span class="nav-number">7.</span> <span class="nav-text">七、相关参考</span></a></li></ol></div>
+        </section>
+        <!--/noindex-->
+
+        <section class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Ng WaiKong</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">9</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/ngwaikong" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;ngwaikong" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.zhihu.com/people/ngwaikong" title="Zhihu → https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;ngwaikong" rel="noopener" target="_blank"><i class="fab fa-zhihu fa-fw"></i>Zhihu</a>
+      </span>
+  </div>
+
+
+
+        </section>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2018/03/21/MVI/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Ng WaiKong">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="NYK's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Thinking in MVI
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2018-03-21 00:00:00" itemprop="dateCreated datePublished" datetime="2018-03-21T00:00:00+08:00">2018-03-21</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-12-18 17:07:06" itemprop="dateModified" datetime="2020-12-18T17:07:06+08:00">2020-12-18</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/architecture/" itemprop="url" rel="index"><span itemprop="name">architecture</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="一、业务问题"><a href="#一、业务问题" class="headerlink" title="一、业务问题"></a>一、业务问题</h2><p>个人负责维护过的几个业务，都以MVC、MVP模式来设计。随着业务发展，出现以下问题：</p>
+<ul>
+<li>改动一处Model牵连数处View，难以测试</li>
+<li>View的更新时序不一，难以调试</li>
+<li>View、Model调用源头过多，难以跟踪</li>
+</ul>
+<h2 id="二、问题分析"><a href="#二、问题分析" class="headerlink" title="二、问题分析"></a>二、问题分析</h2><p>对整体业务进行了熟悉和梳理后，发现架构情况（单以MVC为例）如图：</p>
+<a id="more"></a>
+
+<p><img src="http://m.qpic.cn/psb?/V10Sw18W1Je6qM/98yuLBH7e4bFca6OuslJp0cpBbwTGAuSlBWUjAscuYM!/b/dEABAAAAAAAA&bo=XQHIAF0ByAADFzI!&rf=viewer_4&t=5"><br><img src="http://m.qpic.cn/psb?/V10Sw18W1Je6qM/GBy37MY70nI7bnfTY4QOugvyOl*rlxMtduo5GoZIiv0!/b/dEUBAAAAAAAA&bo=9ADIAPQAyAADFzI!&rf=viewer_4&t=5"></p>
+<ol>
+<li>当业务复杂后，修改Model或者View后，他们有可能会引起多个其他MV的变化。这些“暗箱操作”缺乏统一管理。</li>
+<li>Model、View变化来源有可能是异步情景（IO、UI交互、系统生命周期），对这些情景下的异步、同步代码缺乏有效组织。</li>
+</ol>
+<p>以上问题导致出现了难以“预测”结果，难以Scale Up，难以测试，难以维护的问题。</p>
+<h2 id="三、解决方式"><a href="#三、解决方式" class="headerlink" title="三、解决方式"></a>三、解决方式</h2><ul>
+<li>方式目的：让代码流程变得可预测</li>
+<li>解决思路：数据逻辑单向流动，程序响应数据变化</li>
+<li>方案学习：<br>学习了前端中的单向数据流、响应式的思想和框架，包括Flux、Redux、Cycle.js。</li>
+</ul>
+<h3 id="1、-Flux"><a href="#1、-Flux" class="headerlink" title="1、 Flux"></a>1、 Flux</h3><h4 id="图述："><a href="#图述：" class="headerlink" title="图述："></a>图述：</h4><p><img src="http://m.qpic.cn/psb?/V10Sw18W1Je6qM/RTsxjtcfw96eh*VuOG0UrrazCAHEUAOmSvR7D4mgOUw!/b/dEUBAAAAAAAA&bo=lALIAJQCyAADFzI!&rf=viewer_4&t=5"></p>
+<ul>
+<li> 核心：</li>
+<li>Stores:存放业务数据和应用状态，一个Flux中可能存在多个Stores</li>
+<li>View:视图层</li>
+<li>Actions:用户输入之后触发View发出的事件</li>
+<li>Dispatcher:负责分发Actions</li>
+</ul>
+<h4 id="Android实现：https-github-com-lgvalle-android-flux-todo-app"><a href="#Android实现：https-github-com-lgvalle-android-flux-todo-app" class="headerlink" title="Android实现：https://github.com/lgvalle/android-flux-todo-app"></a>Android实现：<a target="_blank" rel="noopener" href="https://github.com/lgvalle/android-flux-todo-app">https://github.com/lgvalle/android-flux-todo-app</a></h4><h3 id="2、Cycle-js"><a href="#2、Cycle-js" class="headerlink" title="2、Cycle.js"></a>2、Cycle.js</h3><h4 id="图述：-1"><a href="#图述：-1" class="headerlink" title="图述："></a>图述：</h4><p><img src="http://m.qpic.cn/psb?/V10Sw18W1Je6qM/zuBoEqyrxNgrDR4nQX6CBAr2.WVVt.arzCrtpDIBhiY!/b/dFYBAAAAAAAA&bo=4gHIAOIByAADFzI!&rf=viewer_4&t=5"></p>
+<ul>
+<li> 核心：View(Model(Intent))–MVI架构 和 采用RxJs实现响应式</li>
+</ul>
+<h4 id="Android实现：https-github-com-sockeqwe-mosby"><a href="#Android实现：https-github-com-sockeqwe-mosby" class="headerlink" title="Android实现：https://github.com/sockeqwe/mosby"></a>Android实现：<a target="_blank" rel="noopener" href="https://github.com/sockeqwe/mosby">https://github.com/sockeqwe/mosby</a></h4><h3 id="3、Managing-State-with-RxJava"><a href="#3、Managing-State-with-RxJava" class="headerlink" title="3、Managing State with RxJava"></a>3、Managing State with RxJava</h3><h4 id="图述：-2"><a href="#图述：-2" class="headerlink" title="图述："></a>图述：</h4><p><img src="http://m.qpic.cn/psb?/V10Sw18W1Je6qM/mJkKUupvtQWMs57vjeeHNnftb0ze8Gctqtb0iHnpfYE!/b/dPMAAAAAAAAA&bo=qwHIAKsByAADFzI!&rf=viewer_4&t=5"></p>
+<ul>
+<li><p>核心：类似Cycle.js，安卓实现的另一版本。</p>
+</li>
+<li><p>方案沉淀：采用MVI架构设计、采用RxJava实现响应。（基于2和3）</p>
+</li>
+</ul>
+<h2 id="四、实现细节："><a href="#四、实现细节：" class="headerlink" title="四、实现细节："></a>四、实现细节：</h2><h3 id="（一）MVI实现："><a href="#（一）MVI实现：" class="headerlink" title="（一）MVI实现："></a>（一）MVI实现：</h3><p><img src="http://m.qpic.cn/psb?/V10Sw18W1Je6qM/xzYY37GAMtFpO8OJQz6u2qDZw2epd7gcKR9iQyH28oA!/b/dEIBAAAAAAAA&bo=YgHIAGIByAADFzI!&rf=viewer_4&t=5"></p>
+<ul>
+<li>Action：包含业务逻辑处理所需的参数数据</li>
+<li>Intent：代表View或其他事件的触发</li>
+<li>Result：包含业务逻辑返回的数据</li>
+<li>ViewState：包含View层所需绘制的数据</li>
+<li>IView：是View层核心职责抽象：对ViewState的绘制、提供Intent事件源</li>
+<li>IViewModel：是业务层抽象：对Intent的业务处理、对业务返回转化为ViewState</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Action</span> </span>&#123;&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Intent</span> </span>&#123;&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Result</span> </span>&#123;&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">ViewState</span> </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">IView</span>&lt;<span class="title">I</span> <span class="keyword">extends</span> <span class="title">Intent</span>, <span class="title">VS</span> <span class="keyword">extends</span> <span class="title">ViewState</span>&gt; </span>&#123;</span><br><span class="line">    <span class="function">Observable&lt;I&gt; <span class="title">getIntents</span><span class="params">()</span></span>;<span class="comment">//提供Intent事件源</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">render</span><span class="params">(VS vs)</span></span>;<span class="comment">//对ViewState的绘制</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">IViewModel</span>&lt;<span class="title">I</span> <span class="keyword">extends</span> <span class="title">Intent</span>, <span class="title">VS</span> <span class="keyword">extends</span> <span class="title">ViewState</span>&gt; </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">process</span><span class="params">(Observable&lt;I&gt; intent)</span></span>; <span class="comment">//处理Intent</span></span><br><span class="line">    <span class="function">Observable&lt;VS&gt; <span class="title">getViewState</span><span class="params">()</span></span>;<span class="comment">//获取ViewState</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="（二）数据流实现："><a href="#（二）数据流实现：" class="headerlink" title="（二）数据流实现："></a>（二）数据流实现：</h3><p>数据流的起始为Intent，结束为ViewState。下面分为几个部分描述：</p>
+<h4 id="1、Intent-to-Action："><a href="#1、Intent-to-Action：" class="headerlink" title="1、Intent to Action："></a>1、Intent to Action：</h4><p>A、通过Observable.merge（）把IView中的各个intent数据流合并，收归处理。<br>B、通过ofType（）  +  map （）来过滤各个Action将要进行的业务逻辑。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">intentSelector = <span class="keyword">new</span> Func1&lt;Observable&lt;SampleIntent&gt;, Observable&lt;SampleIntent&gt;&gt;() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> Observable&lt;SampleIntent&gt; <span class="title">call</span><span class="params">(Observable&lt;SampleIntent&gt; shareIntent)</span> </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> Observable.merge(</span><br><span class="line">                        shareIntent.ofType(SampleIntent.AIntent.class),</span><br><span class="line">                        shareIntent.ofType(SampleIntent.BIntent.class)</span><br><span class="line">                );</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line"> intentToAction = <span class="keyword">new</span> Func1&lt;SampleIntent, SampleAction&gt;() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> SampleAction <span class="title">call</span><span class="params">(SampleIntent sampleIntent)</span> </span>&#123;</span><br><span class="line">                <span class="keyword">if</span> (sampleIntent <span class="keyword">instanceof</span> SampleIntent.AIntent) &#123;</span><br><span class="line">                    <span class="keyword">return</span> <span class="keyword">new</span> SampleAction.AAction();</span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (sampleIntent <span class="keyword">instanceof</span> SampleIntent.BIntent) &#123;</span><br><span class="line">                    <span class="keyword">return</span> <span class="keyword">new</span> SampleAction.BAction();</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br></pre></td></tr></table></figure>
+
+<h4 id="2、Action-to-Result："><a href="#2、Action-to-Result：" class="headerlink" title="2、Action to Result："></a>2、Action to Result：</h4><p>通过compose（） 和 ObservableTransformer 组织业务逻辑，方便代码梳理和业务逻辑隔离</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">bizProcessor = <span class="keyword">new</span> Observable.Transformer&lt;SampleAction, SampleResult&gt;() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> Observable&lt;SampleResult&gt; <span class="title">call</span><span class="params">(<span class="keyword">final</span> Observable&lt;SampleAction&gt; shareAction)</span> </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> shareAction.publish(<span class="keyword">new</span> Func1&lt;Observable&lt;SampleAction&gt;, Observable&lt;SampleResult&gt;&gt;() &#123;</span><br><span class="line">                    <span class="meta">@Override</span></span><br><span class="line">                    <span class="function"><span class="keyword">public</span> Observable&lt;SampleResult&gt; <span class="title">call</span><span class="params">(Observable&lt;SampleAction&gt; sampleActionObservable)</span> </span>&#123;</span><br><span class="line">                        <span class="keyword">return</span> Observable.merge(</span><br><span class="line">                                shareAction.ofType(SampleAction.AAction.class).compose(aActionToAResultProcessor),</span><br><span class="line">                                shareAction.ofType(SampleAction.BAction.class).compose(bActionToBResultProcessor));</span><br><span class="line"></span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br></pre></td></tr></table></figure>
+<h4 id="3、Result-to-ViewState："><a href="#3、Result-to-ViewState：" class="headerlink" title="3、Result to ViewState："></a>3、Result to ViewState：</h4><p>通过Scan（）来遍历每个业务返回的Result，并根据每个业务Result的字段来返回新的ViewState。（Scan会缓存上次的Result，因此也可以用于做增量更新）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">reducer = <span class="keyword">new</span> Func2&lt;SampleViewState, SampleResult, SampleViewState&gt;() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> SampleViewState <span class="title">call</span><span class="params">(SampleViewState previousState, SampleResult sampleResult)</span> </span>&#123;</span><br><span class="line">                <span class="keyword">if</span> (sampleResult <span class="keyword">instanceof</span> SampleResult.AResult) &#123;</span><br><span class="line">                    <span class="keyword">return</span> <span class="keyword">new</span> SampleViewState.ASampleViewState();</span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (sampleResult <span class="keyword">instanceof</span> SampleResult.BResult) &#123;</span><br><span class="line">                    <span class="keyword">return</span> <span class="keyword">new</span> SampleViewState.BSampleViewState();</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br></pre></td></tr></table></figure>
+
+<h4 id="4、Summary："><a href="#4、Summary：" class="headerlink" title="4、Summary："></a>4、Summary：</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">intents.publish(intentSelector)</span><br><span class="line">                .map(intentToAction)</span><br><span class="line">                .compose(bizProcessor)</span><br><span class="line">                .scan(<span class="keyword">new</span> SampleViewState(), reducer);</span><br></pre></td></tr></table></figure>
+
+<h3 id="（三）实现问题："><a href="#（三）实现问题：" class="headerlink" title="（三）实现问题："></a>（三）实现问题：</h3><h4 id="问题Ⅰ：前后相同的ViewState，会触发UI造成不必要的刷新。"><a href="#问题Ⅰ：前后相同的ViewState，会触发UI造成不必要的刷新。" class="headerlink" title="问题Ⅰ：前后相同的ViewState，会触发UI造成不必要的刷新。"></a>问题Ⅰ：前后相同的ViewState，会触发UI造成不必要的刷新。</h4><p>解决：通过distinctUntilChanged（）来过滤前后两次的scan（）结果，不相同的ViewState才进行刷新。</p>
+<h4 id="问题Ⅱ：当在onConfigurationChanged时，数据流无法保持，会被重新创建。无法应用在屏幕旋转但需要保持最近展示数据的情景。（数据流在onCreate时订阅subscribe，onDestory时unSubscribe）"><a href="#问题Ⅱ：当在onConfigurationChanged时，数据流无法保持，会被重新创建。无法应用在屏幕旋转但需要保持最近展示数据的情景。（数据流在onCreate时订阅subscribe，onDestory时unSubscribe）" class="headerlink" title="问题Ⅱ：当在onConfigurationChanged时，数据流无法保持，会被重新创建。无法应用在屏幕旋转但需要保持最近展示数据的情景。（数据流在onCreate时订阅subscribe，onDestory时unSubscribe）"></a>问题Ⅱ：当在onConfigurationChanged时，数据流无法保持，会被重新创建。无法应用在屏幕旋转但需要保持最近展示数据的情景。（数据流在onCreate时订阅subscribe，onDestory时unSubscribe）</h4><p>解决：<br>A、对于流的结果ViewState，需要进行缓存，可以通过replay(） +  autoConnect（）或者BehaviorSubject实现<br>B、对于流的起始输入，需要保持在内存，不受生命周期影响。可以通过使用一个静态的PublishSubject来中转View层的Intent输入。</p>
+<h2 id="五、使用效果"><a href="#五、使用效果" class="headerlink" title="五、使用效果"></a>五、使用效果</h2><p>（1）所有异步逻辑收归到同一条流，View层只进行响应，因此会</p>
+<ul>
+<li>便于代码跟踪和调试</li>
+<li>便于解决时序问题</li>
+<li>便于组织异步代码</li>
+</ul>
+<p>（2）流是单向的，因此会</p>
+<ul>
+<li>消除额外的“暗箱操作”</li>
+<li>更直观更容易理解业务逻辑（都有唯一和相同的输入输出）</li>
+</ul>
+<h2 id="六、问题思考"><a href="#六、问题思考" class="headerlink" title="六、问题思考"></a>六、问题思考</h2><p>这套开发模式（框架）并不是解决问题的“银弹”，会有以下问题</p>
+<ul>
+<li>小粒度修改，修改成本大：因为需要统一的收归处理，因此小粒度的对View的增删修改，都需要全流程修改，没有像之前MVC的灵活方便。</li>
+<li>业务复杂后，收归成本大：因为统一收归里需要处理每种Action和Result。业务复杂后，在收归处会有大量的if-else if-else 以及switch 处理。</li>
+<li>RxJava的学习成本</li>
+</ul>
+<p>因此需要针对核心业务或业务的核心数据，灵活采用能解决主要矛盾的框架或模式，才是“银弹”。</p>
+<h2 id="七、相关参考"><a href="#七、相关参考" class="headerlink" title="七、相关参考"></a>七、相关参考</h2><ol>
+<li><a target="_blank" rel="noopener" href="https://facebook.github.io/flux/">https://facebook.github.io/flux/</a></li>
+<li><a target="_blank" rel="noopener" href="https://cycle.js.org/">https://cycle.js.org/</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.infoq.com/news/2014/05/facebook-mvc-flux">https://www.infoq.com/news/2014/05/facebook-mvc-flux</a></li>
+<li><a target="_blank" rel="noopener" href="http://jakewharton.com/managing-the-reactive-world-with-rxjava/">http://jakewharton.com/managing-the-reactive-world-with-rxjava/</a></li>
+<li><a target="_blank" rel="noopener" href="http://hannesdorfmann.com/android/mosby3-mvi-1">http://hannesdorfmann.com/android/mosby3-mvi-1</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/oldergod/android-architecture/tree/todo-mvi-rxjava">https://github.com/oldergod/android-architecture/tree/todo-mvi-rxjava</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/42d77c577ff4">https://www.jianshu.com/p/42d77c577ff4</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/gujf2016/p/5780086.html">https://www.cnblogs.com/gujf2016/p/5780086.html</a></li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/architecture/" rel="tag"># architecture</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+            </div>
+            <div class="post-nav-item">
+                <a href="/2018/04/22/StateMachine/" rel="next" title="Android StateMachine分析">
+                  Android StateMachine分析 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Ng WaiKong</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+
+</body>
+</html>
