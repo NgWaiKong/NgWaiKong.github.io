@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.1/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","version":"8.1.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}};
+  </script>
+<meta name="description" content="本质是讲述：进化的稳定性策略（ess)教授的观点每一个生命体都是受基因操纵的生存机器，出于自我保存的目的，基因总是无意识的操纵生命个体做出种种行为，竭尽全力维护自己的基因，甚至不惜赴汤蹈火。在一个种群中，某个突变基因为了保存自己而做出越轨的行为，会对种群的稳定性造成伤害，所以自然选择会对破坏种群稳定性的个体做出惩罚，以使种群再次达到稳定。 “自私” 的意思是：自我保存的强烈的目的性 动物界内有很多">
+<meta property="og:type" content="article">
+<meta property="og:title" content="The Selfish Gene">
+<meta property="og:url" content="http://example.com/2020/12/20/The-Selfish-Gene/index.html">
+<meta property="og:site_name" content="NYK&#39;s Blog">
+<meta property="og:description" content="本质是讲述：进化的稳定性策略（ess)教授的观点每一个生命体都是受基因操纵的生存机器，出于自我保存的目的，基因总是无意识的操纵生命个体做出种种行为，竭尽全力维护自己的基因，甚至不惜赴汤蹈火。在一个种群中，某个突变基因为了保存自己而做出越轨的行为，会对种群的稳定性造成伤害，所以自然选择会对破坏种群稳定性的个体做出惩罚，以使种群再次达到稳定。 “自私” 的意思是：自我保存的强烈的目的性 动物界内有很多">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-12-20T13:31:16.000Z">
+<meta property="article:modified_time" content="2020-12-20T13:31:50.210Z">
+<meta property="article:author" content="Ng WaiKong">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2020/12/20/The-Selfish-Gene/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+<title>The Selfish Gene | NYK's Blog</title>
+  
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">NYK's Blog</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Keep walking</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <section class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9C%AC%E8%B4%A8%E6%98%AF%E8%AE%B2%E8%BF%B0%EF%BC%9A%E8%BF%9B%E5%8C%96%E7%9A%84%E7%A8%B3%E5%AE%9A%E6%80%A7%E7%AD%96%E7%95%A5%EF%BC%88ess"><span class="nav-number">1.</span> <span class="nav-text">本质是讲述：进化的稳定性策略（ess)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%99%E6%8E%88%E7%9A%84%E8%A7%82%E7%82%B9"><span class="nav-number">1.1.</span> <span class="nav-text">教授的观点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%A0%E8%A6%86%E7%9A%84%E5%B8%B8%E8%AF%86"><span class="nav-number">1.2.</span> <span class="nav-text">颠覆的常识</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9B%E7%8A%AF%E8%A1%8C%E4%B8%BA%E8%AF%B4%E6%98%8E%E6%AF%8F%E4%B8%AA%E5%8A%A8%E7%89%A9%E9%83%BD%E6%98%AF%E8%B5%8C%E5%BE%92%EF%BC%8C%E4%B8%BA%E4%BA%86%E8%8E%B7%E5%BE%97%E6%9C%80%E5%A4%A7%E7%9A%84%E5%A5%BD%E5%A4%84%EF%BC%8C%E4%BB%96%E4%BB%AC%E5%80%BE%E5%90%91%E4%BA%8E%E5%9D%90%E7%AD%89%E8%89%AF%E6%9C%BA%E8%80%8C%E4%B8%8D%E6%98%AF%E7%A9%B7%E5%87%B6%E6%9E%81%E6%81%B6"><span class="nav-number">1.2.1.</span> <span class="nav-text">进犯行为说明每个动物都是赌徒，为了获得最大的好处，他们倾向于坐等良机而不是穷凶极恶</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%A1%E5%88%92%E7%94%9F%E8%82%B2%E8%BF%99%E7%AB%A0%E4%B8%BB%E8%A6%81%E8%AF%B4%E7%9A%84%E6%98%AF%E5%8A%A8%E7%89%A9%E7%9A%84%E6%8E%A7%E5%88%B6%E7%94%9F%E8%82%B2%E7%9A%84%E8%A1%8C%E4%B8%BA%E5%B9%B6%E4%B8%8D%E9%AB%98%E5%B0%9A%EF%BC%8C%E5%90%8C%E6%A0%B7%E6%98%AF%E4%B8%BA%E4%BA%86%E8%87%AA%E7%A7%81%E7%9A%84%E7%9B%AE%E7%9A%84"><span class="nav-number">1.2.2.</span> <span class="nav-text">计划生育这章主要说的是动物的控制生育的行为并不高尚，同样是为了自私的目的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%A4%E6%80%A7%E6%88%98%E4%BA%89%E6%BE%84%E6%B8%85%E7%9A%84%E8%AF%AF%E5%8C%BA%E5%88%99%E6%98%AF%E4%B8%8D%E6%AD%A2%E9%9B%84%E6%80%A7%E5%AE%B9%E6%98%93%E5%87%BA%E8%BD%A8%EF%BC%8C%E9%9B%8C%E6%80%A7%E4%B9%9F%E6%98%AF%E5%8D%8A%E6%96%A4%E5%85%AB%E4%B8%A4"><span class="nav-number">1.2.3.</span> <span class="nav-text">两性战争澄清的误区则是不止雄性容易出轨，雌性也是半斤八两</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E9%99%85%E6%88%98%E4%BA%89%E4%B9%9F%E5%BE%88%E7%B2%BE%E5%BD%A9%EF%BC%8C%E5%9B%B4%E7%BB%95%E4%BA%B2%E4%BB%A3%E6%8A%95%E8%B5%84%E8%BF%99%E4%B8%AA%E6%A6%82%E5%BF%B5%EF%BC%8C%E8%AF%B4%E6%98%8E%E4%BA%86%E5%9F%BA%E5%9B%A0%E7%9A%84%E8%87%AA%E7%A7%81%E5%B1%9E%E6%80%A7"><span class="nav-number">1.2.4.</span> <span class="nav-text">代际战争也很精彩，围绕亲代投资这个概念，说明了基因的自私属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A5%BD%E4%BA%BA%E4%BC%9A%E6%9C%89%E5%A5%BD%E6%8A%A5%E8%BF%99%E7%AB%A0%E5%88%99%E8%AF%B4%E6%98%8E%E5%8D%9A%E5%BC%88%E4%B8%AD%E8%83%8C%E5%8F%9B%E5%B9%B6%E4%B8%8D%E6%80%BB%E6%98%AF%E5%A5%8F%E6%95%88"><span class="nav-number">1.2.5.</span> <span class="nav-text">好人会有好报这章则说明博弈中背叛并不总是奏效</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%80%8C%E4%BA%BA%E8%BF%99%E4%B8%AA%E7%89%B9%E6%AE%8A%E5%9C%A8%E5%93%AA%E9%87%8C%EF%BC%9F%E6%98%AF-%E8%87%AA%E6%88%91%E6%84%8F%E8%AF%86%E4%B8%8E%E8%A7%85%E6%AF%8D-meme"><span class="nav-number">1.3.</span> <span class="nav-text">而人这个特殊在哪里？是 自我意识与觅母(meme)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E6%98%AF%EF%BC%9A%E4%BA%BA%E7%B1%BB%E4%B8%8E%E4%B8%96%E9%97%B4%E4%B8%87%E7%89%A9%E5%B9%B6%E6%97%A0%E6%9C%AC%E8%B4%A8%E5%8C%BA%E5%88%AB%EF%BC%8C%E9%83%BD%E5%8F%AA%E6%98%AF%E5%90%84%E8%87%AA%E5%9F%BA%E5%9B%A0%E7%9A%84%E8%BF%90%E8%BD%BD%E5%B7%A5%E5%85%B7%E8%80%8C%E5%B7%B2%EF%BC%8C%E4%B8%A4%E8%80%85%E5%B2%82%E4%B8%8D%E6%98%AF%E7%9F%9B%E7%9B%BE%E4%BA%86%EF%BC%9F%E8%BF%99%E5%8F%88%E8%AF%A5%E5%A6%82%E4%BD%95%E7%90%86%E8%A7%A3%EF%BC%9F"><span class="nav-number">1.3.1.</span> <span class="nav-text">问题是：人类与世间万物并无本质区别，都只是各自基因的运载工具而已，两者岂不是矛盾了？这又该如何理解？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%AC%E8%B4%A8%E6%98%AF%EF%BC%9A%E8%BF%99%E9%87%8C%E7%9A%84%E5%85%B3%E9%94%AE%E6%89%80%E5%9C%A8%E5%B0%B1%E6%98%AF%E4%BA%BA%E7%B1%BB%E5%85%B7%E6%9C%89%E8%87%AA%E6%88%91%E6%84%8F%E8%AF%86%EF%BC%8C%E8%80%8C%E4%BE%9D%E9%9D%A0%E8%87%AA%E6%88%91%E6%84%8F%E8%AF%86%E5%8F%AF%E4%BB%A5%E6%91%86%E8%84%B1%E5%9F%BA%E5%9B%A0%E7%9A%84%E6%8E%A7%E5%88%B6%E3%80%82%E5%90%8C%E6%97%B6%EF%BC%8C%E6%88%91%E4%BB%AC%E8%BF%98%E6%8B%A5%E6%9C%89%E4%B8%80%E7%A7%8D%E4%BA%BA%E7%B1%BB%E6%89%80%E7%89%B9%E6%9C%89%E7%9A%84%E5%A4%8D%E5%88%B6%E5%9F%BA%E5%9B%A0%EF%BC%8C%E4%BD%9C%E8%80%85%E5%B0%86%E5%85%B6%E5%91%BD%E5%90%8D%E4%B8%BA%E8%A7%85%E6%AF%8D%EF%BC%88meme%EF%BC%89%E3%80%82"><span class="nav-number">1.3.2.</span> <span class="nav-text">本质是：这里的关键所在就是人类具有自我意识，而依靠自我意识可以摆脱基因的控制。同时，我们还拥有一种人类所特有的复制基因，作者将其命名为觅母（meme）。</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%BA%E7%B1%BB%E6%88%91%E4%BB%AC%E6%98%AF%E4%BD%9C%E4%B8%BA%E5%9F%BA%E5%9B%A0%E6%9C%BA%E5%99%A8%E8%80%8C%E8%A2%AB%E5%BB%BA%E9%80%A0%E7%9A%84%EF%BC%8C%E6%98%AF%E4%BD%9C%E4%B8%BA%E8%A7%85%E6%AF%8D%E6%9C%BA%E5%99%A8%E8%80%8C%E8%A2%AB%E5%9F%B9%E5%85%BB%E7%9A%84%EF%BC%8C%E4%BD%86%E6%88%91%E4%BB%AC%E5%85%B7%E5%A4%87%E8%B6%B3%E5%A4%9F%E7%9A%84%E5%8A%9B%E9%87%8F%E5%8E%BB%E5%8F%8D%E5%AF%B9%E6%88%91%E4%BB%AC%E7%9A%84%E7%BC%94%E9%80%A0%E8%80%85%E3%80%82%E5%9C%A8%E8%BF%99%E4%B8%AA%E4%B8%96%E7%95%8C%E4%B8%8A%EF%BC%8C%E5%8F%AA%E6%9C%89%E6%88%91%E4%BB%AC%EF%BC%8C%E6%88%91%E4%BB%AC%E4%BA%BA%E7%B1%BB%EF%BC%8C%E8%83%BD%E5%A4%9F%E5%8F%8D%E6%8A%97%E8%87%AA%E7%A7%81%E7%9A%84%E5%A4%8D%E5%88%B6%E5%9F%BA%E5%9B%A0%E7%9A%84%E6%9A%B4%E6%94%BF%E3%80%82"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">人类我们是作为基因机器而被建造的，是作为觅母机器而被培养的，但我们具备足够的力量去反对我们的缔造者。在这个世界上，只有我们，我们人类，能够反抗自私的复制基因的暴政。</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%89%B9%E5%88%AB%E7%9A%84%E6%80%BB%E7%BB%93%EF%BC%9A"><span class="nav-number">2.</span> <span class="nav-text">特别的总结：</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%AA%E7%A7%81%E5%9F%BA%E5%9B%A0%E5%92%8C%E4%BA%BA%E7%94%9F%E6%84%8F%E4%B9%89%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="nav-number">2.1.</span> <span class="nav-text">自私基因和人生意义的关系</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">3.</span> <span class="nav-text">参考</span></a></li></ol></div>
+        </section>
+        <!--/noindex-->
+
+        <section class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Ng WaiKong</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">10</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/ngwaikong" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;ngwaikong" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.zhihu.com/people/ngwaikong" title="Zhihu → https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;ngwaikong" rel="noopener" target="_blank"><i class="fab fa-zhihu fa-fw"></i>Zhihu</a>
+      </span>
+  </div>
+
+
+
+        </section>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/12/20/The-Selfish-Gene/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Ng WaiKong">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="NYK's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          The Selfish Gene
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2020-12-20 21:31:16 / Modified: 21:31:50" itemprop="dateCreated datePublished" datetime="2020-12-20T21:31:16+08:00">2020-12-20</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="本质是讲述：进化的稳定性策略（ess"><a href="#本质是讲述：进化的稳定性策略（ess" class="headerlink" title="本质是讲述：进化的稳定性策略（ess)"></a>本质是讲述：进化的稳定性策略（ess)</h1><h2 id="教授的观点"><a href="#教授的观点" class="headerlink" title="教授的观点"></a>教授的观点</h2><p>每一个生命体都是受基因操纵的生存机器，出于自我保存的目的，基因总是无意识的操纵生命个体做出种种行为，竭尽全力维护自己的基因，甚至不惜赴汤蹈火。在一个种群中，某个突变基因为了保存自己而做出越轨的行为，会对种群的稳定性造成伤害，所以自然选择会对破坏种群稳定性的个体做出惩罚，以使种群再次达到稳定。</p>
+<p>“自私” 的意思是：自我保存的强烈的目的性</p>
+<p>动物界内有很多动物表现出舍己为人的利他行为，很多科学家认为生命体并不是天生自私，他们会为了种群的利益而采取利他行为，这几乎成为学界认可的常识。但是道金斯教授则澄清了这个误区，<br>他说生命体的利他行为其实并不是为了种群的利益，而只是基因为了最大限度的保存现有利益而做出的利他行为，其目的仍是自私的。</p>
+<blockquote>
+<p>就比如亲代个体控制生育并不是为了种群的利益，减少对食物等资源的竞争，而是为了最大限度的保存现有的子女成活。因为子女越多，所能享用的食物越来越少，亲代不能保证所有子女都成活，所以控制生育的行为表现为利他，但目的确实是自私的。</p>
+</blockquote>
+<h2 id="颠覆的常识"><a href="#颠覆的常识" class="headerlink" title="颠覆的常识"></a>颠覆的常识</h2><h3 id="进犯行为说明每个动物都是赌徒，为了获得最大的好处，他们倾向于坐等良机而不是穷凶极恶"><a href="#进犯行为说明每个动物都是赌徒，为了获得最大的好处，他们倾向于坐等良机而不是穷凶极恶" class="headerlink" title="进犯行为说明每个动物都是赌徒，为了获得最大的好处，他们倾向于坐等良机而不是穷凶极恶"></a>进犯行为说明每个动物都是赌徒，为了获得最大的好处，他们倾向于坐等良机而不是穷凶极恶</h3><p>同种群的两个动物为了争夺食物、领地、配偶等资源势必要进行一场搏斗。常识认为这场搏斗越激烈越好，因为狭路相逢勇者胜，战胜者才会赢得资源让自己的基因存活下去。但是从自私的基因这一观点来看，那种破釜沉舟的好斗精神不会带来好处，也会造成损失，而且不仅是时间和精力的损失，因为其他的竞争对手也会抢夺胜利成果，鹬蚌相争渔翁得利，穷凶极恶并不可取。只有暂时克制自己，坐等良机到来，等到对手虚弱的时候再趁机行事，自己方能安全生存，这才是明智之举。看吧，常识往往会使人误入歧途啊。</p>
+<h3 id="计划生育这章主要说的是动物的控制生育的行为并不高尚，同样是为了自私的目的"><a href="#计划生育这章主要说的是动物的控制生育的行为并不高尚，同样是为了自私的目的" class="headerlink" title="计划生育这章主要说的是动物的控制生育的行为并不高尚，同样是为了自私的目的"></a>计划生育这章主要说的是动物的控制生育的行为并不高尚，同样是为了自私的目的</h3><p>常识上认为一个个体控制生育是为了种群的利益，为了减少资源的竞争，但是实际情况却是个体之所以调节生育的子女数，绝非出自利他性动机，而只是出于自我保存的目的。如果对生育不加控制，生育的子女过多，超过种群可以承受的能力，食物短缺加上亲代精力有限无法照顾好每一个幼儿，导致能存活的子女数少于控制生育所能存活的子女数，这样得不偿失。繁殖是代价昂贵的事情，为了最大限度保证现有子女的存活数，将自身基因延续下去，它们不得不对生育进行控制。</p>
+<h3 id="两性战争澄清的误区则是不止雄性容易出轨，雌性也是半斤八两"><a href="#两性战争澄清的误区则是不止雄性容易出轨，雌性也是半斤八两" class="headerlink" title="两性战争澄清的误区则是不止雄性容易出轨，雌性也是半斤八两"></a>两性战争澄清的误区则是不止雄性容易出轨，雌性也是半斤八两</h3><p>为了最大限度的使自己的基因存活下去，两性都偏向于减少对于幼儿的投资从而设法同其他配偶生更多的子女。但是，雄性在进化上有更多的优势，因为雄性的精子产生更加容易，而且孕育这件事主要靠雌性，时间和精力耗费不少，已经大伤元气，没有更多的精力去寻找更多的配偶。所以，雄性更偏向于抛弃雌性与子女，而雌性受到剥削。为了减少被抛弃造成的损失，雌性可能采取的方针有四个，一个就是欺骗另一个雄性，或者将胎儿流产并尽快找到新配偶，坚持到底自己抚养子女或者不等雄性抛弃她，她先抛弃雄性。谁先抛弃对方，谁就占便宜，这是个很令人不愉快的事实。为了欺骗对方付出更多的资源在幼儿身上从而和其他配偶生育更多子女，雌性也会做出抛弃行为。所以忠诚才是两性关系中最为重要的品质。我觉得这样的理论也可以用于关照人类社会，为什么出轨的多是男性，因为这是基因决定的。同样的，女性出轨也更加值得关注。</p>
+<h3 id="代际战争也很精彩，围绕亲代投资这个概念，说明了基因的自私属性"><a href="#代际战争也很精彩，围绕亲代投资这个概念，说明了基因的自私属性" class="headerlink" title="代际战争也很精彩，围绕亲代投资这个概念，说明了基因的自私属性"></a>代际战争也很精彩，围绕亲代投资这个概念，说明了基因的自私属性</h3><p>做母亲的该不该有宠儿，她对待子女该不该一视同仁？从自私的基因角度来看，母亲对每个孩子都投入食物，时间，照料等资源是不明智的，应该选择更能使她的基因生存下去的孩子进行投资。这一章引入了亲代投资概念，意思是说亲代对子女个体进行的任何形式的投资，从而增加了该子女生存的机会，但是却减少了了其他子女生存的机会。这种投资在动物界很广泛，那些身体羸弱的幼儿，和强壮的兄弟姐妹相比，耗费食物而且存活下去的机会也更加渺茫，他从母亲处获得的基因就不能延续下去，所以母亲为了延续基因的目的会对长得强壮或者更加吸引他们注意的孩子投以更多的资源，对那些羸弱的幼儿不加照顾，任其自生自灭或者纵容兄弟姐妹把它吃掉。布谷鸟为了获得更多食物，或大声尖叫以引起养父母注意，为了不招来捕猎者，养父母会把食物喂给叫声最大的布谷鸟；布谷鸟出于自私的目的，还会杀死它的兄弟姐妹，这不是骇人听闻，而是经过动物学家证实的。因为大声尖叫和杀死兄弟姐妹的基因能够保证布谷鸟得到食物从而存活下来，所以这些基因会扩散开来，从而达到进化上的稳定。那些认为母亲会对每个子女一视同仁的观点，看到这样的例子估计也会大跌眼镜。所以，道金斯教授说我们必须把利他主义的美德灌输到子女的头脑中去，因为我们不能指望他们的本性里有利他主义的成分。</p>
+<h3 id="好人会有好报这章则说明博弈中背叛并不总是奏效"><a href="#好人会有好报这章则说明博弈中背叛并不总是奏效" class="headerlink" title="好人会有好报这章则说明博弈中背叛并不总是奏效"></a>好人会有好报这章则说明博弈中背叛并不总是奏效</h3><p>常识上都认为，在囚徒困境博弈里，不论采取什么样的对策，背叛策略总是最为划算的。但是道金斯教授又介绍了更加复杂的重复性博弈论，用数学加计算机的方式得出结论，只有在一次性的简单博弈中，背叛才是理性的策略，而在重复性博弈里，善良策略总是奏效的，能够带来更大的收益。因此，即使我们都是由自私的基因掌舵，好人终将有好报。<br>但蝙蝠的好人好报是真的有这个基因和行为。参考蝙蝠的室友被饿，蝙蝠愿意养室友自己的血。</p>
+<h2 id="而人这个特殊在哪里？是-自我意识与觅母-meme"><a href="#而人这个特殊在哪里？是-自我意识与觅母-meme" class="headerlink" title="而人这个特殊在哪里？是 自我意识与觅母(meme)"></a>而人这个特殊在哪里？是 自我意识与觅母(meme)</h2><h3 id="问题是：人类与世间万物并无本质区别，都只是各自基因的运载工具而已，两者岂不是矛盾了？这又该如何理解？"><a href="#问题是：人类与世间万物并无本质区别，都只是各自基因的运载工具而已，两者岂不是矛盾了？这又该如何理解？" class="headerlink" title="问题是：人类与世间万物并无本质区别，都只是各自基因的运载工具而已，两者岂不是矛盾了？这又该如何理解？"></a>问题是：人类与世间万物并无本质区别，都只是各自基因的运载工具而已，两者岂不是矛盾了？这又该如何理解？</h3><h3 id="本质是：这里的关键所在就是人类具有自我意识，而依靠自我意识可以摆脱基因的控制。同时，我们还拥有一种人类所特有的复制基因，作者将其命名为觅母（meme）。"><a href="#本质是：这里的关键所在就是人类具有自我意识，而依靠自我意识可以摆脱基因的控制。同时，我们还拥有一种人类所特有的复制基因，作者将其命名为觅母（meme）。" class="headerlink" title="本质是：这里的关键所在就是人类具有自我意识，而依靠自我意识可以摆脱基因的控制。同时，我们还拥有一种人类所特有的复制基因，作者将其命名为觅母（meme）。"></a>本质是：这里的关键所在就是人类具有自我意识，而依靠自我意识可以摆脱基因的控制。同时，我们还拥有一种人类所特有的复制基因，作者将其命名为觅母（meme）。</h3><p>什么是觅母？其实，所谓的觅母就是一种“文化基因”，它存在于我们的大脑中，并且也能通过模仿实现自我复制。它可以是一首歌曲、一本书的内容或者某些人的观点。这些觅母通过人类的大脑进行复制传播，就好比基因通过身体复制传播一样。而对于人类而言，觅母比基因更重要。比如孔子的基因到今天可能已经所剩无几，但是孔子的觅母却仍然存在于千千万万个人的大脑之中。</p>
+<p>因此，作为拥有自我意识和独特文化的人类，我们完全可以同我们自私基因的本能相抗衡。无论是懒惰也好，逃避痛苦也罢，这些都只是基因控制你的工具而已，你所要做的就是认识它、警惕它并最终摆脱它的控制。</p>
+<h4 id="人类我们是作为基因机器而被建造的，是作为觅母机器而被培养的，但我们具备足够的力量去反对我们的缔造者。在这个世界上，只有我们，我们人类，能够反抗自私的复制基因的暴政。"><a href="#人类我们是作为基因机器而被建造的，是作为觅母机器而被培养的，但我们具备足够的力量去反对我们的缔造者。在这个世界上，只有我们，我们人类，能够反抗自私的复制基因的暴政。" class="headerlink" title="人类我们是作为基因机器而被建造的，是作为觅母机器而被培养的，但我们具备足够的力量去反对我们的缔造者。在这个世界上，只有我们，我们人类，能够反抗自私的复制基因的暴政。"></a>人类我们是作为基因机器而被建造的，是作为觅母机器而被培养的，但我们具备足够的力量去反对我们的缔造者。在这个世界上，只有我们，我们人类，能够反抗自私的复制基因的暴政。</h4><h1 id="特别的总结："><a href="#特别的总结：" class="headerlink" title="特别的总结："></a>特别的总结：</h1><p>生物演化过程：原始汤 -&gt; 复制因子 -&gt; 自然选择 -&gt; 基因机器（载体，人，动物植物） </p>
+<blockquote>
+<p>原始汤:<br>海洋中只有一些简单的化合物，比如水、二氧化碳、甲烷、氨等，它们在闪电或紫外线照射的能量影响下，反应生成了一些有机分子。这些有机物质在某些地方积聚起来，受到能量的进一步影响后，结合成更大一些的分子，就这样，越来越多的分子在原始的海洋中自由地漂浮着。<br>复制因子：到了某一时刻，一个非凡的分子偶然形成。我们称之为复制基因。它并不见得是那些分子当中最大或最复杂的，但它具有一种特殊的性质——能够复制自己。<br>自然选择<br>上述的复制基因产生后，为了更好地生存下去，它需要尽可能地复制自己。但复制无法保证百分百的完全精确，于是随着复制错误的产生和扩散，原始海洋里便充满了由好几个品种的复制分子组成的种群，而不是清一色的全都一样的复制品。这样一来，不同品种的复制基因就形成了竞争关系，互相争夺海洋中用来复制自己的材料。在竞争中，有一些复制基因相比其他基因而言可能寿命更长、复制速度更快或者复制精确度更高，具备这三个特点的复制基因明显更具生存优势。<br>于是经过一段时间的演化，那些生存时间短、复制速度慢或出错率高的基因就日渐稀少，甚至有一些品种难逃绝种的命运。这便是自然选择，也就是进化的实质。<br>基因机器<br>为了能够生存下去，各种复制基因竭尽所能，它们为自己制造容器，即赖以生存的运载工具。最原始的生存机器也许仅仅是一层保护衣，后来随着新的竞争对手陆续出现，它们拥有更优良、更有效的生存机器，因此生存斗争随之逐渐激化。生存机器的体积越来越大，其结构也渐臻复杂，这是一个积累和渐进的过程。</p>
+</blockquote>
+<h2 id="自私基因和人生意义的关系"><a href="#自私基因和人生意义的关系" class="headerlink" title="自私基因和人生意义的关系"></a>自私基因和人生意义的关系</h2><p>从自私基因的角度来看，人生确实没有意义。所谓的意义是拥有自我意识的我们自己赋予的。<br>因此，作为独立的个体，你可以认为人生有意义也可以认为毫无意义，你也可以赋予自己的人生独特的意义，大到改变世界、造福人类，小到享受生活、周游世界，甚至结婚生子抚养孩子长大也能成为意义。<br>基因是“自私”的，但人生仍然是你自己的。</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/145074757">https://zhuanlan.zhihu.com/p/145074757</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/60903186">https://zhuanlan.zhihu.com/p/60903186</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/29961944">https://www.zhihu.com/question/29961944</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.zhihu.com/search?type=content&amp;q=%E8%87%AA%E7%A7%81%E7%9A%84%E5%9F%BA%E5%9B%A0">https://www.zhihu.com/search?type=content&amp;q=%E8%87%AA%E7%A7%81%E7%9A%84%E5%9F%BA%E5%9B%A0</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/12/18/travel-planning-of-Disney/" rel="prev" title="迪士尼提前攻略">
+                  <i class="fa fa-chevron-left"></i> 迪士尼提前攻略
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Ng WaiKong</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+
+</body>
+</html>
